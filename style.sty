@@ -1,0 +1,87 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{style}[2022/06/01 Franz Miltz Preamble]
+
+\RequirePackage[british]{babel}
+\RequirePackage{pseudo}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{thmtools}
+\RequirePackage{siunitx}
+\RequirePackage{mathtools}
+\RequirePackage{tikz-cd}
+\RequirePackage{todonotes}
+\RequirePackage{bbold}
+\RequirePackage[style=alphabetic]{biblatex}
+\bibliography{sources.bib}
+
+% theorems
+\newtheoremstyle{sltheorem} {}                % Space above
+{}                % Space below
+{\upshape}        % Theorem body font % (default is "\upshape")
+{}                % Indent amount
+{\bfseries}       % Theorem head font % (default is \mdseries)
+{.}               % Punctuation after theorem head % default: no punctuation
+{ }               % Space after theorem head
+{}                % Theorem head spec
+\theoremstyle{sltheorem}
+
+\declaretheorem[parent=section]{theorem}
+\declaretheorem[sibling=theorem]{lemma, corollary, conjecture, proposition}
+
+\declaretheoremstyle[
+  qed={$\triangleleft$}
+]{definition}
+
+\declaretheorem[sibling=theorem, style=definition]{definition, example, remark}
+
+\newcounter{axiomcounter}
+\setcounter{axiomcounter}{0}
+\newtheorem{axiom}[axiomcounter]{Axiom}
+
+% macros
+\newcommand{\declarecommand}[1]{\providecommand{#1}{}\renewcommand{#1}}
+
+\declarecommand{\N}{\mathbb{N}}
+\declarecommand{\Z}{\mathbb{Z}}
+\declarecommand{\Q}{\mathbb{Q}}
+\declarecommand{\R}{\mathbb{R}}
+\declarecommand{\C}{\mathbb{C}}
+
+\declarecommand{\P}{\mathcal{P}}
+
+\declarecommand{\cc}[1]{\left\lbrace#1\right\rbrace}
+\declarecommand{\rr}[1]{\left(#1\right)}
+\declarecommand{\rb}[1]{\left(#1\right]}
+\declarecommand{\br}[1]{\left[#1\right)}
+\declarecommand{\aa}[1]{\left\langle{#1}\right\rangle}
+\declarecommand{\bb}[1]{\left[#1\right]}
+\declarecommand{\vv}[1]{\left\vert#1\right\vert}
+\declarecommand{\all}[2]{\forall #1.\:#2}
+\declarecommand{\ex}[2]{\exists #1.\:#2}
+\declarecommand{\restrict}[2]{\left. #1 \right\rvert_{#2}}
+\declarecommand{\inv}[1]{{#1}^{-1}}
+
+\declarecommand{\hs}{\hspace{1cm}}
+\declarecommand{\explain}[1]{\overset{(\ref{#1})}{=}}
+\declarecommand{\explainnat}[1]{\overset{#1\text{-nat}}{=}}
+\declarecommand{\explaindef}[1]{\overset{#1\text{-def}}{=}}
+\declarecommand{\explainid}{\overset{\text{id}}{=}}
+
+\DeclareMathSymbol{\iex}{\mathord}{operators}{'074}
+
+\declarecommand{\missingproof}{\todo[color=red!50]{proof}}
+\declarecommand{\missingdef}{\todo[color=blue!50]{definition}}
+\declarecommand{\missingstatement}{\todo[color=orange!50]{statement}}
+\declarecommand{\missingexample}{\todo[color=green!50]{example}}
+\declarecommand{\note}[1]{\todo[color=yellow!50]{#1}}
+
+\declarecommand{\ophelper}[1]{{#1}^\text{op}}
+\declarecommand{\cat}[1]{\mathcal{#1}}
+\declarecommand{\catop}[1]{\ophelper{\cat{#1}}}
+
+\declarecommand{\Set}{\textbf{Set}}
+\declarecommand{\Cat}{\textbf{Cat}}
+\declarecommand{\CAT}{\textbf{CAT}}
+
+\declarecommand{\restriction}[2]{\left. #1 \right\rvert_{#2}}
