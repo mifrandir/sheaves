@@ -1,27 +1,5 @@
 \documentclass{article}
 \usepackage{style}
-\usepackage{quiver}
-
-\RequirePackage[a4paper]{geometry}
-\geometry{tmargin=3cm, bmargin=3cm, lmargin=2cm, rmargin=3cm}
-
-% links
-\RequirePackage{hyperref}
-\hypersetup{
-  colorlinks,
-  citecolor=black,
-  filecolor=black,
-  linkcolor=black,
-  urlcolor=black
-}
-
-% headers
-\RequirePackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead[L]{\leftmark}
-\fancyhead[R]{\thepage}
-\fancyfoot[C]{}
-\renewcommand{\headrulewidth}{0pt}
 
 \author{Franz Miltz}
 \title{Sheaf theory}
@@ -36,7 +14,7 @@
 \section{Sections}\label{sec:sections}
 
 \begin{definition}
-  \missingdef
+  Let $X,Y$ be topological spaces and $p:X\to Y$ be a continuous map.
 \end{definition}
 
 \missingexample
@@ -53,16 +31,54 @@
 
 \section{Sheaves}\label{sec:sheaves}
 
+\begin{definition}[Presheaf]
+
+\end{definition}
+
 \begin{definition}[Sheaf]
   \missingdef
 \end{definition}
+
+\begin{definition}[Sheaf homomorphism]
+  \missingdef
+\end{definition}
+
+\begin{definition}[Category of sheaves]
+  \missingdef
+\end{definition}
+
+\section{Locally constant sheaves}\label{sec:locally_constant_sheaves}
 
 \begin{definition}[Constant sheaf]
   \missingdef
 \end{definition}
 
 \begin{definition}[Locally constant sheaf]
-  \missingdef
+  A sheaf $\mathcal F$ on $X$ is locally constant
+  when, for all $x\in X$, there exists $U\subseteq X$ such that $x\in U$ and
+  $\restriction{\mathcal F}{U}$ is isomorphic to a constant sheaf.
 \end{definition}
+
+\begin{example}
+  Take $p:S^1 \to S^1$ as $z\mapsto z^k$ for $k\geq 2$.
+  Then $\Gamma\rr{-,p}$ is a locally constant sheaf.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{example}
+
+\begin{lemma}
+  If $F$ is a constant sheaf on $X$ and $V\subseteq U\subseteq X$ are opens then
+  \begin{align*}
+    \Gamma\rr{U, F} = \Gamma\rr{V,F}.
+  \end{align*}
+\end{lemma}
+
+\begin{example}
+  Let $X=\R$ and let $\sim$ be the equivalence relation on $\R+\R$ such that
+  $x\sim y$ iff $x=y\neq 0$ and let $Y=\rr{\R+\R}/\sim$. Let $p:Y\to X$ be
+  given by the identity. Then the sheaf of sections $\Gamma\rr{-,p}$
+  is not locally constant.
+\end{example}
 
 \end{document}
