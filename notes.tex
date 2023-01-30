@@ -21,13 +21,81 @@
 
 \section{Categories and functors}\label{sec:categories_and_functors}
 
+Categories generalise the notion of algebraic objects and their homomorphisms.
+Rather than focusing on the internal structure of the objects, we study the
+morphisms between them.
+
 \begin{definition}[Category]\label{def:category}
-  \missingdef
+  A category $\cat C$ consists of
+  \begin{enumerate}
+    \item a class of objects $\Ob\cat{C}$;
+    \item for all $X,Y\in\Ob\cat{C}$, a class of arrows $\cat{C}\rr{X,Y}$;
+    \item for all $X\in\Ob\cat{C}$, an arrow $1_X\in\cat{C}\rr{X,X}$;
+    \item for all $f\in\cat{C}\rr{X,Y}$ and $g\in\cat{C}\rr{Y,Z}$, an arrow
+      $g\circ f\in\cat{C}\rr{X,Z}$
+  \end{enumerate}
+  such that
+  \begin{enumerate}
+    \item for all $f\in\cat{C}\rr{X,Y}$, $f\circ 1_X = f = 1_Y\circ f$;
+    \item for all $f\in\cat{C}\rr{W,X}$, $g\in\cat{C}\rr{X,Y}$, $h\in\cat{C}\rr{Y,Z}$,
+      $h\circ(g\circ f)=(h\circ g)\circ f$.
+  \end{enumerate}
 \end{definition}
 
+\begin{notation}
+  We improve notation as follows:
+  \begin{itemize}
+    \item $X\in\cat{C}$ means $X\in\Ob\cat{C}$;
+    \item $f:X\to Y$ in $\cat{C}$ means $X,Y\in\Ob\cat{C}$ and $f\in\cat{C}\rr{X,Y}$;
+    \item for composable arrows $f$ and $g$ in $\cat{C}$, we may write $gf$ to mean $g\circ f$.
+  \end{itemize}
+\end{notation}
+
+\begin{example}
+  There are some common algebraic structures that form categories with their respective
+  homomorphisms:
+  \begin{itemize}
+    \item $\text{Set}$: objects are sets, arrows are functions;
+    \item $\text{Hilb}$: objects are Hilbert spaces, arrows are bounded linear operators;
+    \item $\text{Grp}$: objects are groups, arrows are homomorphisms
+  \end{itemize}
+\end{example}
+
+\begin{example}
+  However, we also have categories where the arrows are not functions of any kind:
+  \begin{itemize}
+    \item $\text{Rel}$: objects are sets, arrows are relations $R\subseteq X\times Y$,
+      composition is
+      \begin{align*}
+        S\circ R=\cc{\rr{x,z} : \exists y.\:\rr{x,y}\in R,\rr{y,z}\in S}
+      \end{align*}
+    \item For any poset $(P,\leq)$, we have a category with objects $x\in P$,
+      a unique arrow $x\to y$ iff $x\leq y$, and composition of $x\to y$ and
+      $y\to z$ yields the unique arrow $x\to z$ which exists by transitivity
+      of $\leq$.
+    \item Using the above, for any topological space $X$, the poset of open sets
+      $(\text{Opens}X, \subseteq)$ may be regarded as a category.
+  \end{itemize}
+\end{example}
+
 \begin{definition}[Functor]\label{def:functor}
-  \missingdef
+  Let $\cat{C},\cat{D}$ be categories. A \emph{functor} $F:\cat{C}\to\cat{D}$
+  consists of
+  \begin{enumerate}
+    \item for each $X\in\cat{C}$, an object $FX\in\cat{D}$;
+    \item for each $f:X\to Y$ in $\cat{C}$, an arrow $Ff:FX\to FY$
+  \end{enumerate}
+  such that
+  \begin{enumerate}
+    \item for all $X\in\cat{C}$, $F1_X=1_{FX}$;
+    \item for all composable arrows $f,g$ in $\cat{C}$, $F\rr{g\circ f}=Fg\circ Ff$.
+  \end{enumerate}
 \end{definition}
+
+\begin{example}
+  We now have another category, $\Cat$, with objects all small categories, and
+  arrows are functors.
+\end{example}
 
 \section{Sheaves}\label{sec:sheaves}
 
@@ -80,5 +148,83 @@
   given by the identity. Then the sheaf of sections $\Gamma\rr{-,p}$
   is not locally constant.
 \end{example}
+
+\section{Covering space}\label{sec:covering_space}
+
+\begin{definition}
+  A \emph{covering space} for $X$ consists of
+  \begin{enumerate}
+    \item a topological space $\tilde X$;
+    \item a map $p:\tilde X\to X$
+  \end{enumerate}
+  such that, for all $x\in X$, there are sets $U,S$ with $x\in U$, $\inv p\rr{U}=S\times U$,
+  and, for all $s\in S$, $\restriction{p}{\cc{s}\times U}:\cc{S}\times U\to U$ is a
+  homemorphism.
+\end{definition}
+
+\begin{notation}
+  We denote a covering $(\tilde X,p)$ of $X$ by $p:\tilde X\to X$.
+\end{notation}
+
+\begin{example}
+  The map $p:S^1\to S^1$ given by $z\mapsto x^k$, for some $k$, is a covering.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{example}
+
+\begin{example}
+  Let $X$ be two copies of $S^1$ that intersect in a single point. Weirdly connected
+  graph?
+\end{example}
+
+\begin{example}
+  The map $p:\R^2\to\R$ given by $\rr{x,y}\mapsto x$ is not a covering.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{example}
+
+\begin{example}
+  The canonical map $p:\R^2\to\R^2/\Z$ is a covering.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{example}
+
+\begin{proposition}
+  Let $p:\tilde X\to X$ and $p':\tilde{\tilde X}\to\tilde X$ be coverings.
+  Then $pp':\tilde{\tilde{X}}\to X$ is a covering.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{proposition}
+
+\begin{definition}
+  Let $p_1:\tilde X_1\to X$ and $p_2:\tilde X_2\to X$ be coverings. A covering homomorphism
+  is a map $f:\tilde X_1\to\tilde X_2$ such that $p_1 = p_2\circ f$.
+\end{definition}
+
+\begin{definition}
+  A path-connected covering of $X$ is a covering $(\tilde X,p)$ where $\tilde X$ is
+  path-connected.
+\end{definition}
+
+\begin{theorem}
+  If $X$ is locally path connected then there exists a cover
+  $(\tilde X,p)$ such that, for all other covers $(Y,q)$ and choice of $x\in X$, $y\in Y$
+  with $p(y)=x$, there exists a unique homorphism of covers $f:(\tilde X,p)\to(Y,q)$
+  with \missingdef
+\end{theorem}
+
+\begin{theorem}
+  Let $p:\tilde X\to X$ be a covering. If $\tilde X$ is simply connected then
+  $\tilde X$ is the universal cover.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{theorem}
+
+\printbibliography
 
 \end{document}

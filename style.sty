@@ -49,13 +49,13 @@
 \theoremstyle{sltheorem}
 
 \declaretheorem[parent=section]{theorem}
-\declaretheorem[sibling=theorem]{lemma, corollary, conjecture, proposition}
+\declaretheorem[sibling=theorem]{lemma, corollary, conjecture, proposition, example}
 
 \declaretheoremstyle[
   qed={$\triangleleft$}
 ]{definition}
 
-\declaretheorem[sibling=theorem, style=definition]{definition, example, remark}
+\declaretheorem[sibling=theorem, style=definition]{definition, remark, notation}
 
 \newcounter{axiomcounter}
 \setcounter{axiomcounter}{0}
@@ -105,5 +105,6 @@
 \declarecommand{\Set}{\textbf{Set}}
 \declarecommand{\Cat}{\textbf{Cat}}
 \declarecommand{\CAT}{\textbf{CAT}}
+\DeclareMathOperator{\Ob}{Ob}
 
 \declarecommand{\restriction}[2]{\left. #1 \right\rvert_{#2}}
