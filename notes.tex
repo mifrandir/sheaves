@@ -11,14 +11,6 @@
 
 \printbibliography
 
-\section{Sections}\label{sec:sections}
-
-\begin{definition}
-  Let $X,Y$ be topological spaces and $p:X\to Y$ be a continuous map.
-\end{definition}
-
-\missingexample
-
 \section{Categories and functors}\label{sec:categories_and_functors}
 
 Categories generalise the notion of algebraic objects and their homomorphisms.
@@ -94,38 +86,130 @@ morphisms between them.
 
 \begin{example}
   We now have another category, $\Cat$, with objects all small categories, and
-  arrows are functors.
+  arrows are functors. Moreover, there is an obvious inclusion functor
+  $J:\Cat\to\CAT$.
 \end{example}
+
+\section{Sections}\label{sec:sections}
+
+\begin{definition}
+  Let $X,Y$ be topological spaces and $p:Y\to X$ be a continuous map. A continuous section
+  is a continuous map $s:X\to Y$ such that $p \circ s = 1_X$.
+
+  More generally, let $p:Y\to X$ be an arrow in a category $\cat{C}$. Then a section
+  is an arrow $s:X\to Y$ such that $p\circ s=1_X$ in $\cat{C}$.
+\end{definition}
+
+\begin{definition}
+  Let $X,Y$ be a topological space, let $U\subseteq X$ be open, and let $p:Y\to X$ be
+  a continuous map. Then the \emph{sheaf of sections of $p$ at $U$} is the set
+  $\Gamma\rr{U,p}$ of all continuous maps $s:U\to X$ such that, for all $x\in U$,
+  $\rr{p\circ s}\rr{x}=x$.
+\end{definition}
+
+\missingexample
 
 \section{Sheaves}\label{sec:sheaves}
 
-\begin{definition}[Presheaf]
-
+\begin{definition}
+  Let $X$ be a topological space. A \emph{presheaf on $X$} is a functor
+  $F:\Open\rr{X}^{\text{op}}\to\Set$.
 \end{definition}
 
-\begin{definition}[Sheaf]
-  \missingdef
+\begin{notation}
+  Following the sheaf of sections, we adapt the following:
+  \begin{enumerate}
+    \item for opens $U\subseteq X$, we write $\Gamma\rr{U,F}=F$;
+    \item for inclusions $j:U\to V$ in $\Open\rr{X}$, $\res_{U,V}=Fj$.
+  \end{enumerate}
+\end{notation}
+
+\begin{definition}
+  Let $X$ be a topological space. A \emph{sheaf on $X$} is a presheaf $F$ on $X$
+  such that
+  \begin{enumerate}
+    \item for every open cover $\cc{U_i}_{i\in I}$ of an open set $U\subseteq X$ and
+      $s,t\in\Gamma\rr{U,F}$,
+      \begin{align*}
+        \forall i,j\in I.\: \res_{U_i,U}(s) = \res_{U_j,U}(t)
+      \end{align*}
+      implies $s=t$;
+    \item for every open cover $\cc{U_i}_{i\in I}$ of an open set $U\subseteq X$
+      and every family $\cc{s_i}_{i\in I}$ such that $s_i\in FU_i$, for all $i$,
+      if, for all $i,j\in I$, $\restriction{s_i}{U_i\cap U_j} = \restriction{s_j}{U_i\cap U_j}$,
+      then there exists an $s\in FU$ such that, for all $i\in I$,
+      $\restriction{s}{U_i}=s_i$.
+  \end{enumerate}
 \end{definition}
 
-\begin{definition}[Sheaf homomorphism]
-  \missingdef
+\begin{definition}
+  Let $F,G$ be sheaves on $X$. A \emph{homomorphism $\eta:F\to G$} is
+  a natural transformation $F\Rightarrow G$.
 \end{definition}
 
-\begin{definition}[Category of sheaves]
-  \missingdef
+\begin{definition}
+  Let $X$ be a topological space. The \emph{category of sheaves $\textbf{Sheaf}(X)$}
+  has as objects all sheaves on $X$ and as arrows all natural transformations between
+  them.
 \end{definition}
 
 \section{Locally constant sheaves}\label{sec:locally_constant_sheaves}
 
-\begin{definition}[Constant sheaf]
-  \missingdef
+We say a sheaf is constant if it is constant on every connected component. We choose this
+definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axioms.
+
+\begin{definition}
+  Let $S$ be a set and $X$ a topological sapce. Then
+  the constant sheaf $F^S$ is the sheaf of sections
+  the projection $\pi:S\times X\to X$.
 \end{definition}
 
-\begin{definition}[Locally constant sheaf]
-  A sheaf $\mathcal F$ on $X$ is locally constant
-  when, for all $x\in X$, there exists $U\subseteq X$ such that $x\in U$ and
-  $\restriction{\mathcal F}{U}$ is isomorphic to a constant sheaf.
+
+\begin{definition}[Constant sheaf]
+  A sheaf $F$ on $X$ is constant if, for some set $S$ and all opens $U\subseteq X$,
+  \note{verify}
+  \begin{equation}
+    \Gamma(U,F) = \prod_{\pi_0U}S
+  \end{equation}
+  where $\pi_0U$ is the set of connected components of $U$.
 \end{definition}
+
+\begin{definition}
+  A \emph{locally constant sheaf $F$ on $X$} is a sheaf such that,
+  for all $x\in X$, there exists an open neighbourhood $U$ of $x$,
+  a set $S_x$, and an isomorphism
+  \begin{align*}
+    \text{res}_{U,X} \cong \restriction{F^{S_x}}{U}.
+  \end{align*}
+\end{definition}
+
+\begin{lemma}
+  Let $B$ be a basis of $X$ and let $F,G$ be sheaves on $X$. Suppose, for all $U\in B$,
+  we have a map $\eta_U:FU\to GU$ such that, for all $V\subseteq U$,
+  \begin{equation}
+    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGVSJdLFswLDEsIkdVIl0sWzIsMCwiRlYiXSxbMiwxLCJHViJdLFswLDIsIkZpIl0sWzAsMSwiXFxldGFfVSIsMl0sWzIsMywiXFxldGFfViJdLFsxLDMsIkdpIiwyXV0=
+    \begin{tikzcd}
+      FU && FV \\
+      GU && GV
+      \arrow["Fi", from=1-1, to=1-3]
+      \arrow["{\eta_U}"', from=1-1, to=2-1]
+      \arrow["{\eta_V}", from=1-3, to=2-3]
+      \arrow["Gi"', from=2-1, to=2-3]
+    \end{tikzcd}
+  \end{equation}
+  Then there exists a unique sheaf homomorphism $\tilde\eta : F\to G$.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{lemma}
+
+\begin{theorem}
+  Let $F$ be a locally constant sheaf. Then there exists a covering space
+  $p:E\to X$ such that $\restriction{F}{E} \cong F$.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{theorem}
 
 \begin{example}
   Take $p:S^1 \to S^1$ as $z\mapsto z^k$ for $k\geq 2$.
@@ -152,6 +236,17 @@ morphisms between them.
 \section{Covering space}\label{sec:covering_space}
 
 \begin{definition}
+  Let $i:Y\to X$ an open map and $F$ a sheaf on $X$. Then
+  the \emph{pullback along $i$} is the sheaf $i^*F$ on $Y$
+  given by, for all $U\subseteq Y$,
+  \begin{align*}
+    i^*F(U) = F(i(U)).
+  \end{align*}
+\end{definition}
+
+
+
+\begin{definition}
   A \emph{covering space} for $X$ consists of
   \begin{enumerate}
     \item a topological space $\tilde X$;
@@ -159,7 +254,7 @@ morphisms between them.
   \end{enumerate}
   such that, for all $x\in X$, there are sets $U,S$ with $x\in U$, $\inv p\rr{U}=S\times U$,
   and, for all $s\in S$, $\restriction{p}{\cc{s}\times U}:\cc{S}\times U\to U$ is a
-  homemorphism.
+  homeomorphism.
 \end{definition}
 
 \begin{notation}
@@ -224,6 +319,23 @@ morphisms between them.
     \missingproof
   \end{proof}
 \end{theorem}
+
+\begin{definition}
+  Let $F$ be a sheaf on $X$ and let $x\in X$. The stalk $F_x$ of $F$ at $X$ is the
+  colimit of the sheaf applied to the category of open sets containing $x$.
+\end{definition}
+
+\begin{example}
+  Examples...
+\end{example}
+
+\begin{lemma}
+  Let $F$ be a locally constant sheaf on $X$. Then, for all $x\in X$, there exists
+  an open $U\subseteq X$ with $x\in U$ such that $FU=F_x$.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{lemma}
 
 \printbibliography
 
