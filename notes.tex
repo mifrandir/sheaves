@@ -17,8 +17,8 @@ Categories generalise the notion of algebraic objects and their homomorphisms.
 Rather than focusing on the internal structure of the objects, we study the
 morphisms between them.
 
-\begin{definition}[Category]\label{def:category}
-  A category $\cat C$ consists of
+\begin{definition}\label{def:category}
+  A \emph{category} $\cat C$ consists of
   \begin{enumerate}
     \item a class of objects $\Ob\cat{C}$;
     \item for all $X,Y\in\Ob\cat{C}$, a class of arrows $\cat{C}\rr{X,Y}$;
@@ -70,7 +70,7 @@ morphisms between them.
   \end{itemize}
 \end{example}
 
-\begin{definition}[Functor]\label{def:functor}
+\begin{definition}\label{def:functor}
   Let $\cat{C},\cat{D}$ be categories. A \emph{functor} $F:\cat{C}\to\cat{D}$
   consists of
   \begin{enumerate}
@@ -326,7 +326,9 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
 \end{definition}
 
 \begin{example}
-  Examples...
+  \begin{itemize}
+  \item $(C^\infty)_0$.
+  \end{itemize}
 \end{example}
 
 \begin{lemma}
@@ -336,6 +338,29 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
     \missingproof
   \end{proof}
 \end{lemma}
+
+\section{Geometry}
+
+\begin{definition}
+  An \emph{$n$-dimensional $C^k$-manifold} consists of
+  \begin{enumerate}
+    \item a topological space $X$;
+    \item a sheaf of ring $\mathcal O_X:\Open(X)^{\text{op}}\to\textbf{Rings}$
+  \end{enumerate}
+  such that there exists an open cover $\cc{U_\alpha}_{\alpha\in\Lambda}$
+  together with isomorphisms
+  \begin{align*}
+    (U_\alpha,\restriction{U_\alpha}{\mathcal O_X})\cong (\R^n,C^k).
+  \end{align*}
+\end{definition}
+
+\begin{example}
+  \begin{itemize}
+    \item $(\text{Spec} R,\mathcal O_{\text{Spec} R})$;
+    \item $(\C^n, \text{holos})$;
+    \item $(\R^n, C^\infty)$.
+  \end{itemize}
+\end{example}
 
 \printbibliography
 
