@@ -9,8 +9,6 @@
 \tableofcontents
 \pagebreak
 
-\printbibliography
-
 \section{Categories and functors}\label{sec:categories_and_functors}
 
 Categories generalise the notion of algebraic objects and their homomorphisms.
@@ -90,7 +88,6 @@ morphisms between them.
   $J:\Cat\to\CAT$.
 \end{example}
 
-\missingexample
 \note{Add more concrete examples}
 
 \section{Sections}\label{sec:sections}
@@ -103,52 +100,69 @@ morphisms between them.
   is an arrow $s:X\to Y$ such that $p\circ s=1_X$ in $\cat{C}$.
 \end{definition}
 
-\begin{remark}
-The existence of a section implies that the map $p$ is surjective. This is obvious from the definition.
-The converse depends on the axiom of choice. If $p$ is surjective, then there exists a section of $p$ if we accept the axiom.
+\begin{remark}\label{remark:continuity_and_sections}
+  The existence of a section implies that the map $p$ is surjective. The converse
+  depends on the axiom of choice. If $p$ is surjective, then there exists a section
+  of $p$ if we accept the axiom.
 \end{remark}
 
 \begin{definition}
-  Let $X,Y$ be a topological space, let $U\subseteq X$ be open, and let $p:Y\to X$ be
-  a continuous map. Then the \emph{sheaf of sections of $p$ at $U$} is the set
-  $\Gamma\rr{U,p}$ of all continuous maps $s:U\to X$ such that, for all $x\in U$,
-  $\rr{p\circ s}\rr{x}=x$.
+  Let $X,Y$ be topological spaces, let $U\subseteq X$ be open, and let $p:Y\to X$ be
+  a continuous map. Then a \emph{section of $p$ at $U$} is a continuous map
+  $s:U\to X$ such that, for all $x\in U$, $\rr{p\circ s}\rr{x}=x$.
+  We note by $\Gamma(U,p)$ the set of all continuous sections of $p$ at $U$.
 \end{definition}
 
 \begin{example}
-Let let $p : \mathbb{R} \to \mathbb{R}$ be the continuous map $x \mapsto x^2$. We have that
-\begin{align*}
-	\Gamma\rr{U,p} = \{\text{set of square root functions on } U\}.
-\end{align*}
-For example, if $U = ]1, 2[$ then
-\begin{align*}
-	\Gamma\rr{U,p} = \{+\sqrt{\phantom{a}}, -\sqrt{\phantom{a}}\}.
-\end{align*}
-In particular, a square root function can be described as a continuous map $\sigma  : U \to \mathbb{R}$ such that for every  $u \in U$ we have $\sigma(u)^2 = u$.
+  Let let $p : \mathbb{R} \to \mathbb{R}$ be the continuous map $x \mapsto x^2$.
+  Consider $U = \br{1,\infty}$. Then
+  \begin{align*}
+    \Gamma\rr{U,p} = \{+\sqrt{\phantom{a}}, -\sqrt{\phantom{a}}\}.
+  \end{align*}
+  More generally, we may define a square root function on $U$ as a continuous map
+  $\sigma  : U \to \mathbb{R}$ such that for every  $u \in U$ we have $\sigma(u)^2 = u$.
+  Then, for all opens $U\subseteq\R$, $\Gamma(U,p)$ is the set of square root
+  functions on $U$. In particular, we have
+  \begin{align*}
+    \vv{\Gamma(U,p)} = 2^{\pi_0(U)}.
+  \end{align*}
 \end{example}
 
-\begin{example}
-\label{ex:complexroot}
-Consider the continuous map $p : \mathbb{C}^\times \to \mathbb{C}^\times$ sending $z \mapsto z^2$. Note that this map is not continuous if considered over all of $\mathbb{C}$. If we "confine ourselves to a quadrant on the circle" (i.e. open sets $U$ contained in one quadrant) we have that
-\begin{align*}
-	\# \Gamma\rr{U, p} = 2.
-\end{align*}
-This makes sense, as the inverse function $z^{1/2}$ is a multivalued function with exactly $2$ values. What we mean by the "confinement to the quadrant" is that if we happened to have a union of open sets that somehow "cross" the removed point $0$, then the sheaf of sections will have no sections at all. This makes sense insofar as such a section would not be continuous near $0$. In particular, the sheaf of scetion seems to know how the open sets are distributed.
+\begin{example}\note{improve explanation}
+  \label{ex:complexroot}
+  Consider the continuous map $p : \C^\times \to \C^\times$ sending
+  $z \mapsto z^2$. Note that this map is not continuous if considered over all of
+  $\C$.
+
+  Let $U\subseteq\C^\times$ be open and connected. If $U$ is
+  contained in one of the quadrants of the complex plane, then
+  \begin{align*}
+    \vv{\Gamma\rr{U, p}} = 2.
+  \end{align*}
+  This makes sense, because for every continuous section $s:U\to\C^\times$ we have
+  a different section $-s$. It is straightforward to show that these are the only
+  two sections.
+
+  However, if we take $U$ to be the open disc $\cc{x \in \C^\times : \vv{x}<1}$
+  then $\Gamma(U,p)=\emptyset$, i.e.~there are no continuous sections. This is
+  remarkable: Even though the problematic point $0$ is not part of the
+  topological space $\C^\times$, the map $U\mapsto\Gamma(U,p)$ seems to
+  remember that it is special.
 \end{example}
-\note{This example is a bit poorly explained, but I think is good to consider for intuition, let's discuss how to fix this? Come back to this example and how it becomes problematic when gluing - disagreement on overlap}
 
-\missingexample
-\note{add more complicated example}
-
-
-For two topological spaces $X$ and $Y$ and a continuous map $p : X \to Y$, sheaves of sections give us information about how homeomorphic the map $p$ is.
+For continuous maps $p : Y \to X$, $\Gamma(-,p)$ contains information
+about how homeomorphic $p$ is.
 
 \begin{proposition}
-Let $p : X \to Y$ be a continuous map. If $p$ is a homeomorphism then $\Gamma\rr{U,p}$ consists of the continuous map $g : Y \to X$ such that $g \circ f = 1_X$ and $f \circ g = 1_Y$. 
+  Let $p : Y \to X$ be a continuous map and let $U\subseteq X$ be open.
+  If $p$ is a homemorphism then its inverse restricted to $U$
+  is in $\Gamma(U,p)$.
 \end{proposition}
 
 \begin{remark}
-We will note this formally later, however something to think about is that if a map $p : X \to Y$ is locally homeomorphic then we can recover $p$ from its sheaf of sections. In particular, we will see that this relates to the concept of "gluing" things together.
+  If a map $p : X \to Y$ is locally homeomorphic, then we can recover
+  $p$ from its sections. In particular, we will see that this relates to the
+  concept of \emph{gluing}.
 \end{remark}
 
 \section{Sheaves}\label{sec:sheaves}
@@ -167,14 +181,12 @@ We will note this formally later, however something to think about is that if a 
 \end{notation}
 
 \begin{example}[Restriction Map]
-Let $X, Y$ be topological spaces, and let $U \subseteq V \subseteq X$ be open. Suppose $p : Y \to X$ is continuous. Then we can map from $\Gamma\rr{V,p}$ to $\Gamma\rr{U,p}$ using the restriction map from $U$ to $V$:
-\begin{align*}
-	\res_{U,V} : \Gamma\rr{V,p} &\to \Gamma\rr{U,p}\\
-	\sigma &\mapsto \sigma|_U.
-\end{align*}
+  Let $X, Y$ be topological spaces, and let $U \subseteq V \subseteq X$ be open. Suppose $p : Y \to X$ is continuous. Then we can map from $\Gamma\rr{V,p}$ to $\Gamma\rr{U,p}$ using the restriction map from $U$ to $V$:
+  \begin{align*}
+    \res_{U,V} : \Gamma\rr{V,p} &\to \Gamma\rr{U,p}\\
+    \sigma &\mapsto \sigma|_U.
+  \end{align*}
 \end{example}
-
-We note that this map does not have to be injective or surjective.
 
 \begin{definition}
   Let $X$ be a topological space. A \emph{sheaf on $X$} is a presheaf $F$ on $X$
@@ -268,13 +280,13 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
   Then $\Gamma\rr{-,p}$ is a locally constant sheaf.
   \begin{proof}
     Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$. From complex analysis we know that there are $k$ points satisfying $z = z^k$, hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$. Since each interval is disjoint, we have that $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$. It therefore follows that locally we have a constant sheaf.
-\missingproof
-\note{This is a sketch, I think it would be good to clarify some points, i.e. the isomorphism to the product, and the disjoint union with the epsilon stuff}
+    \missingproof
+    \note{This is a sketch, I think it would be good to clarify some points, i.e. the isomorphism to the product, and the disjoint union with the epsilon stuff}
   \end{proof}
 \end{example}
 
 \begin{nonexample}
- Take $p: \mathbb{R} \to \mathbb{R}$ as $x \mapsto (x-1)(x+1)$.
+  Take $p: \mathbb{R} \to \mathbb{R}$ as $x \mapsto (x-1)(x+1)$.
   Then $\Gamma\rr{-,p}$ is not a locally constant sheaf.
   \begin{proof}
     \missingproof
@@ -390,7 +402,7 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
 
 \begin{example}
   \begin{itemize}
-  \item $(C^\infty)_0$.
+    \item $(C^\infty)_0$.
   \end{itemize}
 \end{example}
 
