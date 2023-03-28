@@ -49,13 +49,17 @@
 \theoremstyle{sltheorem}
 
 \declaretheorem[parent=section]{theorem}
-\declaretheorem[sibling=theorem]{lemma, corollary, conjecture, proposition, example}
-
-\declaretheoremstyle[
-  qed={$\triangleleft$}
-]{definition}
-
-\declaretheorem[sibling=theorem, style=definition]{definition, remark, notation}
+\declaretheorem[sibling=theorem]{
+  lemma,
+  corollary,
+  conjecture,
+  proposition,
+  example,
+  nonexample,
+  remark,
+  definition,
+  notation
+}
 
 \newcounter{axiomcounter}
 \setcounter{axiomcounter}{0}
