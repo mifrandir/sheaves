@@ -320,7 +320,6 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
 \end{definition}
 
 
-
 \begin{definition}
   A \emph{covering space} for $X$ consists of
   \begin{enumerate}
@@ -414,6 +413,15 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
   \end{proof}
 \end{lemma}
 
+\begin{theorem}
+  Every locally constant sheaf is given by sections of some covering space.
+\end{theorem}
+
+\begin{theorem}
+  In a simply connected space, a sheaf is locally constant if, and only if,
+  it is constant.
+\end{theorem}
+
 \section{Geometry}
 
 \begin{definition}
@@ -436,6 +444,79 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
     \item $(\R^n, C^\infty)$.
   \end{itemize}
 \end{example}
+
+\begin{definition}
+  Consider the topological space $S^2\subseteq\R^3$ given by
+  \begin{align*}
+    S^2 = \cc{x \in \R^3 : \vv{x}=1}
+  \end{align*}
+\end{definition}
+
+\begin{example}
+  The tangent bundle of
+  \begin{enumerate}
+    \item $\R$ is $T\R=\R\times\R$ together with the projection $x,y\mapsto x$;
+    \item $\R^2$ is $T\R^2 = \R^2\times\R^2$ together with the projection
+      $x,y\mapsto x$;
+    \item $S^1$ is the set
+      \begin{align*}
+        TS^1 = \cc{(x,y)\in S^1\times\R^2: x\cdot y = 0}.
+      \end{align*}
+  \end{enumerate}
+\end{example}
+
+The map $\R^2\to\R$ given by $x\mapsto\vv{x}$ induces a map
+$T\R^2 \to T\R^1$ given by
+\begin{align*}
+  x_0,x_1,y_0,y_1\mapsto (x_0^2 + x_1^2, 2x_0y_0+2x_1y_1).
+\end{align*}
+
+\begin{definition}
+  Vector fiels on $S^2$ are sections of the projection $TS^2\to S^2$.
+\end{definition}
+
+We can use the language of sheafs to obtain a meaningful result about
+vector fields: Every vector field on $S^2$ has a zero. This is referred to
+as the hedgehog theorem. \note{also hairy ball theorem}
+
+\begin{lemma}\note{maybe?}
+  If $V$ is a nonvanishing vector field on $D^2$, then the map
+  $\text{wind}_V:S^1\to S^1$ is homotopic to the identity.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{lemma}
+
+\begin{theorem}
+  The sheaf
+  \begin{align*}
+    TS^2 \setminus \cc{(x,0)}\to S^2
+  \end{align*}
+  has no global sections.
+  \begin{proof}[Proof sketch]
+    Given a nonvanishing vector field $V$ on $D^2$, we obtain a map
+    $\text{wind}_V:\partial D^2=S^1 \to S^1$ given by
+    \begin{align*}
+      \theta \mapsto \text{angle}(T\theta,V(\theta))
+    \end{align*}
+    Suppose for contradiction we have a non-vanishing vector field
+    on $S^2$. $D^2_{np}$ and $D^2_{sp}$ cover $S^1$ with common boundary
+    $S^1_{eq}$. Thus we have two winding maps
+    \begin{align*}
+      w_V^{D^2_{np}},w_V^{D^2_{sp}}:S^1\to S^1
+    \end{align*}
+    These are homotopic to $\text{id}$ and $-\text{id}$ which are not
+    homotopic.
+  \end{proof}
+\end{theorem}
+
+\begin{example}
+  Consider the vector field $V:S^1\to D^2$ given by $\theta\mapsto(1,0)$.
+  Then $\text{wind}_V:S^1\to S^1$ corresponds to counter-clockwise rotation
+  by $\pi/2$.
+\end{example}
+
+Question: Which surfaces do have non-vanishing vector fields?
 
 \printbibliography
 
