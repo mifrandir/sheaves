@@ -4,17 +4,10 @@
 \RequirePackage{quiver}
 
 \RequirePackage[a4paper]{geometry}
-\geometry{tmargin=3cm, bmargin=3cm, lmargin=2cm, rmargin=3cm}
+\geometry{tmargin=4cm, bmargin=4cm, lmargin=3cm, rmargin=3cm}
 
 % links
 \RequirePackage{hyperref}
-\hypersetup{
-  colorlinks,
-  citecolor=black,
-  filecolor=black,
-  linkcolor=black,
-  urlcolor=black
-}
 
 % headers
 \RequirePackage{fancyhdr}
@@ -23,7 +16,9 @@
 \fancyhead[R]{\thepage}
 \fancyfoot[C]{}
 \renewcommand{\headrulewidth}{0pt}
+\RequirePackage[utf8]{inputenc}
 \RequirePackage[british]{babel}
+\RequirePackage[style=numeric]{biblatex}
 \RequirePackage{pseudo}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
@@ -34,8 +29,6 @@
 \RequirePackage{tikz-cd}
 \RequirePackage{todonotes}
 \RequirePackage{bbold}
-\RequirePackage[style=alphabetic]{biblatex}
-\bibliography{sources.bib}
 
 % theorems
 \newtheoremstyle{sltheorem} {}                % Space above
@@ -105,12 +98,16 @@
 \declarecommand{\ophelper}[1]{{#1}^\text{op}}
 \declarecommand{\cat}[1]{\mathcal{#1}}
 \declarecommand{\catop}[1]{\ophelper{\cat{#1}}}
+\declarecommand{\id}{\text{id}}
 
 \declarecommand{\Set}{\textbf{Set}}
 \declarecommand{\Cat}{\textbf{Cat}}
 \declarecommand{\CAT}{\textbf{CAT}}
-\DeclareMathOperator{\Ob}{Ob}
+\declarecommand{\Grp}{\textbf{Grp}}
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Open}{Open}
 \DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\im}{im}
 
 \declarecommand{\restriction}[2]{\res_{#1}\rr{#2}}

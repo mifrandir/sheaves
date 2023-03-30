@@ -4,29 +4,38 @@
 \author{Franz Miltz}
 \title{Sheaf theory}
 
+\usepackage{biblatex}
+\addbibresource{sources.bib}
+
 \begin{document}
 \maketitle
 \tableofcontents
 \pagebreak
 
-\section{Categories and functors}\label{sec:categories_and_functors}
+\section{Category theory}\label{sec:categories_and_functors}
 
 Categories generalise the notion of algebraic objects and their homomorphisms.
 Rather than focusing on the internal structure of the objects, we study the
-morphisms between them.
+morphisms between them. In this section we define basic categorical concepts that
+we require for later developments.
+
+\subsection{Categories}
+
+Fundamentally, categories consist of objects and morphisms. We may compose morphisms
+and each object has an identity morphism that serves as a unit for composition.
 
 \begin{definition}\label{def:category}
   A \emph{category} $\cat C$ consists of
   \begin{enumerate}
-    \item a class of objects $\Ob\cat{C}$;
-    \item for all $X,Y\in\Ob\cat{C}$, a class of arrows $\cat{C}\rr{X,Y}$;
-    \item for all $X\in\Ob\cat{C}$, an arrow $1_X\in\cat{C}\rr{X,X}$;
+    \item a class of objects $\Obj_{\cat{C}}$;
+    \item for all $X,Y\in\Obj_{\cat{C}}$, a class of arrows $\cat{C}\rr{X,Y}$;
+    \item for all $X\in\Obj_{\cat{C}}$, an arrow $\id_X\in\cat{C}\rr{X,X}$;
     \item for all $f\in\cat{C}\rr{X,Y}$ and $g\in\cat{C}\rr{Y,Z}$, an arrow
       $g\circ f\in\cat{C}\rr{X,Z}$
   \end{enumerate}
   such that
   \begin{enumerate}
-    \item for all $f\in\cat{C}\rr{X,Y}$, $f\circ 1_X = f = 1_Y\circ f$;
+    \item for all $f\in\cat{C}\rr{X,Y}$, $f\circ \id_X = f = \id_Y\circ f$;
     \item for all $f\in\cat{C}\rr{W,X}$, $g\in\cat{C}\rr{X,Y}$, $h\in\cat{C}\rr{Y,Z}$,
       $h\circ(g\circ f)=(h\circ g)\circ f$.
   \end{enumerate}
@@ -35,38 +44,78 @@ morphisms between them.
 \begin{notation}
   We improve notation as follows:
   \begin{itemize}
-    \item $X\in\cat{C}$ means $X\in\Ob\cat{C}$;
-    \item $f:X\to Y$ in $\cat{C}$ means $X,Y\in\Ob\cat{C}$ and $f\in\cat{C}\rr{X,Y}$;
+    \item $X\in\cat{C}$ means $X\in\Obj\cat{C}$;
+    \item $f:X\to Y$ in $\cat{C}$ means $X,Y\in\Obj\cat{C}$ and $f\in\cat{C}\rr{X,Y}$;
     \item for composable arrows $f$ and $g$ in $\cat{C}$, we may write $gf$ to mean $g\circ f$.
   \end{itemize}
 \end{notation}
 
-\begin{example}
-  There are some common algebraic structures that form categories with their respective
-  homomorphisms:
-  \begin{itemize}
-    \item $\text{Set}$: objects are sets, arrows are functions;
-    \item $\text{Hilb}$: objects are Hilbert spaces, arrows are bounded linear operators;
-    \item $\text{Grp}$: objects are groups, arrows are homomorphisms
-  \end{itemize}
-\end{example}
+Categories are a generalisation of monoids. Consider a monoid $(M,*,\id)$. We
+may regard this as a category $\mathcal B M$ with a single object $\bullet$.
+Each $m\in M$ we have an arrow $\mathcal B m:\bullet\to\bullet$ such that the
+composition agrees with the multiplication: $\mathcal B(m')\circ\mathcal Bm =
+\mathcal B(m * m')$. In this sense, one may think of categories as a monoid
+with more than one object. \note{notation?}
 
-\begin{example}
-  However, we also have categories where the arrows are not functions of any kind:
+\begin{example}\note{rational maps and varieties}
+  Categories come in various different flavours:
   \begin{itemize}
-    \item $\text{Rel}$: objects are sets, arrows are relations $R\subseteq X\times Y$,
-      composition is
-      \begin{align*}
-        S\circ R=\cc{\rr{x,z} : \exists y.\:\rr{x,y}\in R,\rr{y,z}\in S}
-      \end{align*}
+    \item $\Set$: objects are sets, arrows are functions;
+    \item $\Grp$: objects are groups, arrows are homomorphisms
     \item For any poset $(P,\leq)$, we have a category with objects $x\in P$,
       a unique arrow $x\to y$ iff $x\leq y$, and composition of $x\to y$ and
       $y\to z$ yields the unique arrow $x\to z$ which exists by transitivity
       of $\leq$.
     \item Using the above, for any topological space $X$, the poset of open sets
-      $(\text{Opens}X, \subseteq)$ may be regarded as a category.
+      $(\text{Opens}X, \subseteq)$ may be regarded as a category. This will prove
+      particularly important.
   \end{itemize}
 \end{example}
+
+Observe some fundamental differences. Firstly, the arrows in $\Set$ and $\Grp$
+functions. Thinking about arrows in abstract categories as functions
+intuitively seems like a good idea. One needs to be careful, however. The poset
+example demonstrates that this intuition is flawed. Secondly, there are size
+differences. While the poset category has as many objects as the poset itself,
+categories like $\Set$ and $\Grp$ are much larger. In fact, we know that
+$\Obj_{\Set}$ is a proper class. When the collection of objects of a category
+is a proper class it is called \emph{large} and otherwise \emph{small}.
+
+Just like other areas of mathematics, we particluarly care about invertible
+arrows:
+
+\begin{definition}
+  Let $\cat{C}$ be a category. An \emph{isomorphism} in $\cat{C}$ is an arrow
+  $f:X\to Y$ such that there exists an arrow $g:Y\to X$ with $f\circ g = \id$
+  and $g\circ f = \id$.
+\end{definition}
+
+\begin{example}
+  We already know what isomorphisms are:
+  \begin{itemize}
+    \item In $\Set$, isomorphisms are bijections.
+    \item In $\Grp$, isomorphisms are isomorphisms of groups.
+    \item In a poset regardes as a category, the only isomorphisms are the
+      identities.
+  \end{itemize}
+\end{example}
+
+We would like to talk about the inverse of an isomorphism. This is well-defined.
+
+\begin{proposition}
+  Let $f:X\to Y$ be an isomorphism in $\cat{C}$. If $g,g':Y\to X$ are inverses of
+  $f$, then $g=g'$.
+  \begin{proof}
+    Note $\id=f\circ g$. In particular $g'=g'\circ(f\circ g) = (g'\circ f)\circ g=g$.
+  \end{proof}
+\end{proposition}
+
+\subsection{Functors}
+
+Functors are morphisms between categories. In the definition of a category (cf.
+\ref{def:category}) we have four pieces of structure. Functors preserve these.
+That is, functors map objects to objects and arrows to arrows in a way that
+preserves identitites and composition.
 
 \begin{definition}\label{def:functor}
   Let $\cat{C},\cat{D}$ be categories. A \emph{functor} $F:\cat{C}\to\cat{D}$
@@ -77,27 +126,259 @@ morphisms between them.
   \end{enumerate}
   such that
   \begin{enumerate}
-    \item for all $X\in\cat{C}$, $F1_X=1_{FX}$;
+    \item for all $X\in\cat{C}$, $F(\id_X)=\id_{FX}$;
     \item for all composable arrows $f,g$ in $\cat{C}$, $F\rr{g\circ f}=Fg\circ Ff$.
   \end{enumerate}
 \end{definition}
 
 \begin{example}
-  We now have another category, $\Cat$, with objects all small categories, and
-  arrows are functors. Moreover, there is an obvious inclusion functor
-  $J:\Cat\to\CAT$.
+  A group is just a set with some additional structure. Similarly,
+  a group homomorphism is a function that satisfies some
+  additional conditions. We may write the underlying set of a group $G$
+  as $UG$ and the underlying function of a group homomorphism $f:G\to H$
+  as $Uf:UG\to UH$. We thus have a functor structure $U:\Grp\to\Set$.
+  It is straightforward to verify that the axioms are satisfied:
+  $U(\id) = \id$ and $U(g\circ f) = Ug\circ Uf$ hold precisely because
+  the morphisms in $\Grp$ are really just functions.
 \end{example}
 
-\note{Add more concrete examples}
+\begin{example}
+  Taking powersets is functorial. Consider the functor structure $\mathcal
+  P:\Set\to\Set$ sending sets to their powersets and functions $f:X\to Y$ to
+  their direct image maps $A\mapsto \cc{f(x) : x\in A}$. Once again, we
+  verify the axioms. Consider a subset $A\subset X$. Then
+  \begin{align*}
+    \mathcal P(\id)(A) &= \cc{\id(x) : x \in A} \\
+                       &= \cc{x : x \in A} \\
+                       &= A.
+  \end{align*}
+  Similarly, consider functions $f:X\to Y$ and $g:Y\to Z$ and a subset
+  $A\subseteq X$. Then
+  \begin{align*}
+    \mathcal P(g\circ f)(A) &= \cc{ g(f(x)) : x\in A} \\
+                            &= \cc{g(y) : y \in \cc{f(x) : x \in A}}\\
+                            &= Pg(\cc{f(x) : x \in A}) \\
+                            &= (Pg\circ Pf)(A).
+  \end{align*}
+\end{example}
+
+We now have another category, $\Cat$, with objects all small categories, and
+arrows are functors. It is also possible to define a category $\CAT$ of
+all categories and all functors. Some care needs to be taken to avoid
+set theoretic complications. This may be achieved using suitable universes,
+see e.g.~\cite{maclane1997}.
+
+\subsection{Natural transformations}
+
+For each set $W$, consider the functor $F_W:\Set\to\Set$ taking $X$ to $X\times W$
+and $f:X\to Y$ to $x,w\mapsto f(x),w$. Let us investigate this family of
+functors.
+
+\begin{itemize}
+  \item If $W$ is the empty set, then is degenerate: $F_\emptyset f$ is simply
+    the unique function $\emptyset\to\emptyset$.
+  \item If $W$ is a singleton, then $F_W$ neither adds nor removes any structure.
+    That is, for all sets $X$, there is a bijection $F_W X\cong X$. Thus we also
+    have a bijection $\Set(F_W X,F_W Y)\cong\Set(X,Y)$.
+  \item If $W\subseteq W'$, then, for all $X$, $F_W X\subseteq F_{W'}X$. Similarly,
+    a function $F_{W}f$ is just a restriction of $F_{W'}f$. Thus we have an
+    injective map $\Set(F_W X, F_W Y)\to\Set(F_{W'} X, F_{W'} Y)$.
+\end{itemize}
+
+To describe the relation between parallel functors such as the $F_W$ more
+formally, we define natural transformations.
+
+\begin{definition}
+  Let $F,G:\cat{C}\to\cat{D}$ be functors. A \emph{natural transformation
+  $\phi:F\Rightarrow G$} consists of, for all $X\in\cat{C}$,
+  an arrow $\phi_X : FX \to GX$ in $\cat{D}$ such that, for all
+  $f:X\to Y$ in $\cat{C}$, the following commutes:
+  \begin{equation}
+    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGWCJdLFswLDEsIkZZIl0sWzIsMSwiR1kiXSxbMiwwLCJHWCJdLFswLDEsIkZmIiwyXSxbMywyLCJHZiJdLFsxLDIsIlxccGhpX1kiLDJdLFswLDMsIlxccGhpX1giXV0=
+    \begin{tikzcd}
+      FX && GX \\
+      FY && GY
+      \arrow["Ff"', from=1-1, to=2-1]
+      \arrow["Gf", from=1-3, to=2-3]
+      \arrow["{\phi_Y}"', from=2-1, to=2-3]
+      \arrow["{\phi_X}", from=1-1, to=1-3]
+    \end{tikzcd}
+  \end{equation}
+\end{definition}
+
+\begin{notation}
+  We will drop the subscripts of the components whenever it is convenient to do so.
+\end{notation}
+
+\begin{example}
+  Consider the $F_W$ from earlier.
+  \begin{itemize}
+    \item We have a natural transformation $\phi:F_\emptyset \Rightarrow
+      \Delta\emptyset$, where $\Delta\emptyset$ is the constant functor
+      $X\mapsto\emptyset$. The components are the unique functions
+      $\phi_X:\emptyset\to\emptyset$ and the naturality condition is trivial.
+    \item For $W$ a singleton, we have a natural transformation $\phi:F_W\Rightarrow
+      \text{Id}$ where $\text{Id}$ is the identity functor on $\Set$. The
+      components are the projections $\phi_X(x,w)=x$. Naturality is easily
+      verified: $\phi(F_W f(x,w))=\phi(f(x),w) = f(x) = f(\phi(x,w))$.
+    \item For subsets $W\subseteq W'$, we have natural transformations
+      $\phi:F_W\Rightarrow F_{W'}$ given by the inclusions $\phi(x,w) = (x,w)$.
+      Naturality now becomes
+      \begin{align*}
+        \phi(F_W(f)(x,w)) = \phi(f(x),w) = (f(x),w) = F_{W'}(f)(x,w) =
+        F_{W'}(f)(\phi(x,w)).
+      \end{align*}
+  \end{itemize}
+\end{example}
+
+Chasing elements around like this is not pretty. Moreover, we have already
+seen that it is, in general, not possible. We will therefore make use of
+categorical language and diagrams whenever possible.
+
+\subsection{Limits}
+
+Let $\cat{C}$ be a category. Within this category, there may be interesting
+structures that are worth studying. Such structures may be captured in
+formal diagrams:
+
+\begin{definition}
+  A \emph{diagram in $\cat{C}$} is a functor $D:\cat{J}\to\cat{C}$.
+\end{definition}
+
+Diagrams may be thought of marking certain objects and arrows in the category.
+Now a cone of such a diagram is an object that has a consistent way of entering
+the structure:
+
+\begin{definition}
+  Let $D:\cat{J}\to\cat{C}$ be a diagram. A \emph{cone of $D$} is a
+  natural transformation $\Delta C\Rightarrow D$ where $\Delta C$ is a
+  constant functor.
+\end{definition}
+
+Let us investigate this structure in detail. Consider a diagram
+$D:\cat{J}\to\cat{C}$. A cocone $\phi:\Delta C\Rightarrow D$ is a choice of
+object $C\in\cat{C}$ and morphisms $\phi_J:C\to DJ$ for all $J\in\cat{J}$ such
+that the following commutes:
+\begin{equation}
+  % https://q.uiver.app/?q=WzAsMyxbMCwxLCJESiJdLFsyLDEsIkRKJyJdLFsxLDAsIkMiXSxbMCwxLCJEZiIsMl0sWzIsMSwiXFxwaGlfe0onfSJdLFsyLDAsIlxccGhpX0oiLDJdXQ==
+  \begin{tikzcd}
+  & C \\
+    DJ && {DJ'}
+    \arrow["Df"', from=2-1, to=2-3]
+    \arrow["{\phi_{J'}}", from=1-2, to=2-3]
+    \arrow["{\phi_J}"', from=1-2, to=2-1]
+  \end{tikzcd}
+\end{equation}
+
+\begin{example}
+  Consider a family of sets $\mathcal J=\cc{X_\alpha}_{\alpha\in\Lambda}$. We may
+  regard this as a category with no morphisms. We then have
+  the obvious inclusion functor $D:\mathcal J\to\Set$. Consider the cartesian
+  product with the projections
+  \begin{align*}
+    \pi_\alpha : \prod_{\alpha\in\Lambda} X_\alpha \to X_\alpha.
+  \end{align*}
+  This defines a natural transformation
+  \begin{align*}
+    \pi : \Delta\rr{\prod_{\alpha\in\Lambda} X_\alpha}\Rightarrow D
+  \end{align*}
+  In particular, there are no non-identity arrows in $\mathcal J$ so
+  naturality is trivially satisfied.
+\end{example}
+
+Cones are objects with additional structure. Thus we may define morphisms
+between them.
+
+\begin{definition}
+  Let $D:\cat{J}\to\cat{C}$ be a diagram and let $\phi:\Delta C\Rightarrow D$
+  and $\phi':\Delta C'\Rightarrow D$ be cones. Then a \emph{morphism of cones
+  $f:\phi\to \phi'$} consists of an arrow $f:C\to C'$ such that, for all
+  $J\in\cat{J}$, the following commutes:
+  \begin{equation}
+    % https://q.uiver.app/?q=WzAsMyxbMCwwLCJDIl0sWzIsMCwiQyciXSxbMSwxLCJESiJdLFswLDEsImYiXSxbMSwyLCJcXHBoaV9KJyJdLFswLDIsIlxccGhpX0oiLDJdXQ==
+    \begin{tikzcd}
+      C && {C'} \\
+        & DJ
+        \arrow["f", from=1-1, to=1-3]
+        \arrow["{\phi_J'}", from=1-3, to=2-2]
+        \arrow["{\phi_J}"', from=1-1, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+\end{definition}
+
+We now have a category of cones for every diagram.
+Observe another useful property: If we have a cone $\phi:\Delta C\Rightarrow D$
+then any arrow $f:C'\to C$ induces a cone $\phi\circ f:\Delta C'\Rightarrow D$.
+A cone that factors through every other cone is a limit.
+
+\begin{definition}
+  Let $D:\cat{J}\to\cat{C}$ be a diagram. A \emph{limit of $D$} is a cone
+  $\phi$ such that, for all other cones $\phi'$, there is a unique morphism
+  $\phi\to\phi'$.
+\end{definition}
+
+One may think of a limit has having the least amount of information to be a cone.
+This intuition is particularly helpful because limits are unique up to isomorphism.
+
+\begin{proposition}
+  Let $D:\cat{J}\to\cat{C}$ be a diagram. If $\phi:\Delta C\Rightarrow D$
+  and $\psi:\Delta C'\Rightarrow D$ are limits then they are isomorphic as cones.
+  \begin{proof}
+    By definition, there are unique cone morphisms $f:\phi\to\psi$ and
+    $g:\psi\to\phi$. By definition, the following commutes:
+    \begin{equation}
+      % https://q.uiver.app/?q=WzAsNCxbMCwwLCJDIl0sWzIsMCwiQyciXSxbMiwyLCJESiJdLFs0LDAsIkMiXSxbMCwxLCJmIl0sWzEsMiwiXFxwc2kiXSxbMCwyLCJcXHBoaSIsMl0sWzMsMiwiXFxwaGkiXSxbMSwzLCJnIl1d
+      \begin{tikzcd}
+        C && {C'} && C \\
+        \\
+          && DJ
+          \arrow["f", from=1-1, to=1-3]
+          \arrow["\psi", from=1-3, to=3-3]
+          \arrow["\phi"', from=1-1, to=3-3]
+          \arrow["\phi", from=1-5, to=3-3]
+          \arrow["g", from=1-3, to=1-5]
+      \end{tikzcd}
+    \end{equation}
+    Thus $g\circ f:\phi\to\phi$ must be the unique morphism of cones, i.e.
+    the identity. By symmetry we find $f\circ g=\id$ and the claim follows.
+  \end{proof}
+\end{proposition}
+
+\subsection{Colimits}
+
+\begin{definition}
+  Let $D:\cat{J}\to\cat{C}$ be a diagramm. A \emph{cocone of $D$} is a
+  natural transformation from $D$ to a constant functor $\Delta C$
+  to an object $C\in\cat{C}$.
+\end{definition}
+
+Let us spell out the definition in detail. Consider a diagram $D:\cat{J}\to\cat{C}$
+and a cocone $\phi:D\Rightarrow\Delta C$. For all $J\in\cat{J}$, we then have
+components $\phi_J : DJ \to C$ such that, for all $f:J\to J'$ in $\cat{J}$,
+the following commutes:
+\begin{equation}
+  % https://q.uiver.app/?q=WzAsMyxbMCwwLCJESiJdLFsyLDAsIkRKJyJdLFsxLDEsIkMiXSxbMCwxLCJEZiJdLFsxLDIsIlxccGhpX3tKJ30iXSxbMCwyLCJcXHBoaV9KIiwyXV0=
+  \begin{tikzcd}
+    DJ && {DJ'} \\
+       & C
+       \arrow["Df", from=1-1, to=1-3]
+       \arrow["{\phi_{J'}}", from=1-3, to=2-2]
+       \arrow["{\phi_J}"', from=1-1, to=2-2]
+  \end{tikzcd}
+\end{equation}
+
+\begin{example}
+  Consider the empty diagram.
+\end{example}
 
 \section{Sections}\label{sec:sections}
 
 \begin{definition}
   Let $X,Y$ be topological spaces and $p:Y\to X$ be a continuous map. A continuous section
-  is a continuous map $s:X\to Y$ such that $p \circ s = 1_X$.
+  is a continuous map $s:X\to Y$ such that $p \circ s = \id_X$.
 
   More generally, let $p:Y\to X$ be an arrow in a category $\cat{C}$. Then a section
-  is an arrow $s:X\to Y$ such that $p\circ s=1_X$ in $\cat{C}$.
+  is an arrow $s:X\to Y$ such that $p\circ s=\id_X$ in $\cat{C}$.
 \end{definition}
 
 \begin{remark}\label{remark:continuity_and_sections}
@@ -518,6 +799,24 @@ as the hedgehog theorem. \note{also hairy ball theorem}
 
 Question: Which surfaces do have non-vanishing vector fields?
 
-\printbibliography
+\section{Continuous binary functions}
+
+Let $X$ be a topological space. Consider the sheaf $F$ given by
+\begin{align*}
+  FU = \cc{\text{continuous functions $U\to\Z/2\Z$}}.
+\end{align*}
+Observe $\vv{FU}=2^{\pi_0 U}$.
+
+\begin{proposition}
+  Let $F$ be a sheaf on $X$ such that, for all embeddings $f:D^n\to X$,
+  $F(\im f)=\Z/2\Z$. Then, for all opens $U\subseteq X$, $FU = 2^{\pi_0 U}$.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{proposition}
+
+\note{define fiber product}
+
+\printbibliography{}
 
 \end{document}
