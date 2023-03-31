@@ -102,7 +102,7 @@ arrows:
 
 We would like to talk about the inverse of an isomorphism. This is well-defined.
 
-\begin{proposition}
+\begin{proposition}\label{prop:inverses_are_unique}
   Let $f:X\to Y$ be an isomorphism in $\cat{C}$. If $g,g':Y\to X$ are inverses of
   $f$, then $g=g'$.
   \begin{proof}
@@ -237,9 +237,15 @@ categorical language and diagrams whenever possible.
 
 \subsection{Limits}
 
-Let $\cat{C}$ be a category. Within this category, there may be interesting
-structures that are worth studying. Such structures may be captured in
-formal diagrams:
+Fix a category $\cat{C}$.
+
+There are many interesting structures to be studied within a category. Many of these
+structures are captured by limits, an object that is particularly suitable
+for mapping into a particular part of the category.
+
+In order to capture the notion of a structure within a category, we introduce
+formal diagrams. These are not to be confused with the commutative diagrams that
+we use to present equations.
 
 \begin{definition}
   A \emph{diagram in $\cat{C}$} is a functor $D:\cat{J}\to\cat{C}$.
@@ -250,15 +256,17 @@ Now a cone of such a diagram is an object that has a consistent way of entering
 the structure:
 
 \begin{definition}
-  Let $D:\cat{J}\to\cat{C}$ be a diagram. A \emph{cone of $D$} is a
-  natural transformation $\Delta C\Rightarrow D$ where $\Delta C$ is a
-  constant functor.
+  Let $D:\cat{J}\to\cat{C}$ be a diagram. A \emph{cone of $D$} consists of
+  \begin{enumerate}
+    \item an object $C\in\cat{C}$;
+    \item a natural transformation $\phi:\Delta C\Rightarrow D$.
+  \end{enumerate}
 \end{definition}
 
-Let us investigate this structure in detail. Consider a diagram
-$D:\cat{J}\to\cat{C}$. A cocone $\phi:\Delta C\Rightarrow D$ is a choice of
-object $C\in\cat{C}$ and morphisms $\phi_J:C\to DJ$ for all $J\in\cat{J}$ such
-that the following commutes:
+Let us investigate this definition in detail. Consider a diagram
+$D:\cat{J}\to\cat{C}$. A cone $(C,\phi)$ is a choice of object $C\in\cat{C}$
+and morphisms $\phi_J:C\to DJ$ for all $J\in\cat{J}$ such that the following
+commutes:
 \begin{equation}
   % https://q.uiver.app/?q=WzAsMyxbMCwxLCJESiJdLFsyLDEsIkRKJyJdLFsxLDAsIkMiXSxbMCwxLCJEZiIsMl0sWzIsMSwiXFxwaGlfe0onfSJdLFsyLDAsIlxccGhpX0oiLDJdXQ==
   \begin{tikzcd}
@@ -286,14 +294,21 @@ that the following commutes:
   naturality is trivially satisfied.
 \end{example}
 
-Cones are objects with additional structure. Thus we may define morphisms
-between them.
+It is tempting to think of a cone as merely an object. This is problematic as
+the natural transformation is not unique, even when the object is fixed. In
+fact, if we have a cone $(C,\phi)$ then any arrow $f:C'\to C$ induces another
+$D$-cone $(C',\phi\circ f)$. In particular, any endomorphism $f:C\to C$ induces
+its own cone $(C,\phi\circ f)$.
+
+
+Cones are objects with additional structure. Morphisms between them must preserve
+this structure.
 
 \begin{definition}
-  Let $D:\cat{J}\to\cat{C}$ be a diagram and let $\phi:\Delta C\Rightarrow D$
-  and $\phi':\Delta C'\Rightarrow D$ be cones. Then a \emph{morphism of cones
-  $f:\phi\to \phi'$} consists of an arrow $f:C\to C'$ such that, for all
-  $J\in\cat{J}$, the following commutes:
+  Let $D:\cat{J}\to\cat{C}$ be a diagram and consider cones $(C,\phi)$ and
+  $(C',\phi')$. Then a \emph{morphism of cones $f:(C,\phi)\to(C',\phi')$} consists of
+  an arrow $f:C\to C'$ such that, for all $J\in\cat{J}$, the following
+  commutes:
   \begin{equation}
     % https://q.uiver.app/?q=WzAsMyxbMCwwLCJDIl0sWzIsMCwiQyciXSxbMSwxLCJESiJdLFswLDEsImYiXSxbMSwyLCJcXHBoaV9KJyJdLFswLDIsIlxccGhpX0oiLDJdXQ==
     \begin{tikzcd}
@@ -307,20 +322,18 @@ between them.
 \end{definition}
 
 We now have a category of cones for every diagram.
-Observe another useful property: If we have a cone $\phi:\Delta C\Rightarrow D$
-then any arrow $f:C'\to C$ induces a cone $\phi\circ f:\Delta C'\Rightarrow D$.
 A cone that factors through every other cone is a limit.
 
 \begin{definition}
   Let $D:\cat{J}\to\cat{C}$ be a diagram. A \emph{limit of $D$} is a cone
-  $\phi$ such that, for all other cones $\phi'$, there is a unique morphism
-  $\phi\to\phi'$.
+  $(C,\phi)$ such that, for all other cones $(C',\phi')$, there is a unique morphism
+  $(C',\phi')\to(C,\phi)$.
 \end{definition}
 
 One may think of a limit has having the least amount of information to be a cone.
 This intuition is particularly helpful because limits are unique up to isomorphism.
 
-\begin{proposition}
+\begin{proposition}\label{prop:limits_are_unique}
   Let $D:\cat{J}\to\cat{C}$ be a diagram. If $\phi:\Delta C\Rightarrow D$
   and $\psi:\Delta C'\Rightarrow D$ are limits then they are isomorphic as cones.
   \begin{proof}
@@ -344,17 +357,59 @@ This intuition is particularly helpful because limits are unique up to isomorphi
   \end{proof}
 \end{proposition}
 
+\begin{notation}
+  This observation allows us to greatly improve our notation. Consider a diagram
+  $D$ with a limit in $\cat{C}$. We may now choose a particular limit and denote
+  it by
+  \begin{align*}
+    \lim_{J\in\cat{J}}\rr{DJ},\hs\text{or}\hs\lim D,
+  \end{align*}
+  depending on whether we need to specify the object.
+\end{notation}
+
+Note however that the limit of a particular diagram may not exist. Unfortunately, we
+are not in a position to give a meaningful example because the category $\Set$ has
+all small limits.
+
+\begin{theorem}
+  Let $\scat J$ be a small category and $D:\scat J\to\Set$ a diagram. Then $D$ has a limit.
+\end{theorem}
+
+\note{products}
+
+\note{remark circular definition}
+
 \subsection{Colimits}
 
+Colimits are dual to limits. Almost all considerations of the last section translate
+to colimits. Fix a category $\cat{C}$.
+
+Firstly, we have cocones. Where cones provide a way to enter a diagram that is consistent
+with its structure, cocones provide such a way to leave the diagram.
+
 \begin{definition}
-  Let $D:\cat{J}\to\cat{C}$ be a diagramm. A \emph{cocone of $D$} is a
-  natural transformation from $D$ to a constant functor $\Delta C$
-  to an object $C\in\cat{C}$.
+  Let $D:\cat{J}\to\cat{C}$ be a diagram. A \emph{cocone of $D$} consists of
+  \begin{enumerate}
+    \item an object $C\in\cat{C}$;
+    \item a natural transformation $\phi:D\Rightarrow\Delta C$.
+  \end{enumerate}
+  Consider cocones $(C,\phi)$ and $(C',\phi')$. Then a \emph{morphism of cocones $f:(C,\phi)\to(C',\phi')$} consists of
+  an arrow $f:C\to C'$ such that, for all $J\in\cat{J}$, the following
+  commutes:
+  \begin{equation}
+    % https://q.uiver.app/?q=WzAsMyxbMCwxLCJDIl0sWzIsMSwiQyciXSxbMSwwLCJESiJdLFswLDEsImYiLDJdLFsyLDEsIlxccGhpX0onIl0sWzIsMCwiXFxwaGlfSiIsMl1d
+    \begin{tikzcd}
+  & DJ \\
+      C && {C'}
+      \arrow["f"', from=2-1, to=2-3]
+      \arrow["{\phi_J'}", from=1-2, to=2-3]
+      \arrow["{\phi_J}"', from=1-2, to=2-1]
+    \end{tikzcd}
+  \end{equation}
 \end{definition}
 
-Let us spell out the definition in detail. Consider a diagram $D:\cat{J}\to\cat{C}$
-and a cocone $\phi:D\Rightarrow\Delta C$. For all $J\in\cat{J}$, we then have
-components $\phi_J : DJ \to C$ such that, for all $f:J\to J'$ in $\cat{J}$,
+For a diagram $D:\cat{J}\to\cat{C}$, a cocone $(C,\phi)$ is a choice of object
+$C\in\cat{C}$ and morphisms $\phi_J:DJ\to C$ for all $J\in\cat{J}$ such that
 the following commutes:
 \begin{equation}
   % https://q.uiver.app/?q=WzAsMyxbMCwwLCJESiJdLFsyLDAsIkRKJyJdLFsxLDEsIkMiXSxbMCwxLCJEZiJdLFsxLDIsIlxccGhpX3tKJ30iXSxbMCwyLCJcXHBoaV9KIiwyXV0=
@@ -367,9 +422,58 @@ the following commutes:
   \end{tikzcd}
 \end{equation}
 
-\begin{example}
-  Consider the empty diagram.
+\begin{example}\note{fix example to include coproducts, possibly defining them right away}
+  Consider a family of sets $\mathcal J=\cc{X_\alpha}_{\alpha\in\Lambda}$. We may
+  regard this as a category with no morphisms. We then have
+  the obvious inclusion functor $D:\mathcal J\to\Set$. Consider the cartesian
+  product with the projections
+  \begin{align*}
+    \pi_\alpha : \prod_{\alpha\in\Lambda} X_\alpha \to X_\alpha.
+  \end{align*}
+  This defines a natural transformation
+  \begin{align*}
+    \pi : \Delta\rr{\prod_{\alpha\in\Lambda} X_\alpha}\Rightarrow D
+  \end{align*}
+  In particular, there are no non-identity arrows in $\mathcal J$ so
+  naturality is trivially satisfied.
 \end{example}
+
+A cocone that factors through every other cocone is a limit.
+
+\begin{definition}
+  Let $D:\cat{J}\to\cat{C}$ be a diagram. A \emph{colimit of $D$} is a cocone
+  $(C,\phi)$ such that, for all other cocones $(C',\phi')$, there is a unique morphism
+  $(C,\phi)\to(C',\phi)$.
+\end{definition}
+
+One may think of a limit has having the least amount of information to be a cone.
+This intuition is particularly helpful because limits are unique up to isomorphism.
+
+\begin{proposition}
+  Let $D:\cat{J}\to\cat{C}$ be a diagram. If $\phi:\Delta C\Rightarrow D$
+  and $\psi:\Delta C'\Rightarrow D$ are limits then they are isomorphic as cones.
+  \begin{proof}
+    Similar to \ref{prop:limits_are_unique}.
+  \end{proof}
+\end{proposition}
+
+\begin{notation}
+  Once again, we improve the notation. Consider a diagram
+  $D$ with a limit in $\cat{C}$. We may now choose a particular limit and denote
+  it by
+  \begin{align*}
+    \colim_{J\in\cat{J}}\rr{DJ},\hs\text{or}\hs\colim D,
+  \end{align*}
+  depending on whether we need to specify the object.
+\end{notation}
+
+Note however that the colimit of a particular diagram may not exist. Unfortunately, we
+are not in a position to give a meaningful example because the category $\Set$ has
+all small colimits.
+
+\begin{theorem}
+  Let $\scat J$ be a small category and $D:\scat J\to\Set$ a diagram. Then $D$ has a colimit.
+\end{theorem}
 
 \section{Sections}\label{sec:sections}
 
