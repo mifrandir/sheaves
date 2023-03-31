@@ -181,7 +181,9 @@ about how homeomorphic $p$ is.
 \end{notation}
 
 \begin{example}[Restriction Map]
-  Let $X, Y$ be topological spaces, and let $U \subseteq V \subseteq X$ be open. Suppose $p : Y \to X$ is continuous. Then we can map from $\Gamma\rr{V,p}$ to $\Gamma\rr{U,p}$ using the restriction map from $U$ to $V$:
+  Let $X, Y$ be topological spaces, and let $U \subseteq V \subseteq X$ be open.
+  Suppose $p : Y \to X$ is continuous. Then we can map from $\Gamma\rr{V,p}$ to 
+  $\Gamma\rr{U,p}$ using the restriction map from $U$ to $V$:
   \begin{align*}
     \res_{U,V} : \Gamma\rr{V,p} &\to \Gamma\rr{U,p}\\
     \sigma &\mapsto \sigma|_U.
@@ -219,6 +221,18 @@ about how homeomorphic $p$ is.
   a natural transformation $F\Rightarrow G$.
 \end{definition}
 
+\begin{example}
+  Let $X = S^2$, let $F(U) = \cc{f : U \to \R}$ where $f$ is not necessarily continuous, 
+  and let $G(U) = \cc{g : U \to \R}$ where $g$ is continuous. 
+  The inclusion $i_U : G(U) \to F(U)$ is a homomorphism $i : F \to G$. 
+\end{example}
+
+\begin{example}
+  Let $X = \text{surface of the earth}$, let $F(U) = \cc{\text{all people contained in } U}$,
+  and let $G(U) = \cc{\text{all biological mothers of people in } U}$.
+  Mapping a person $p$ to their mother $m(p)$ is a homomorphism $p \mapsto m(p)$.
+\end{example}
+
 \begin{definition}
   Let $X$ be a topological space. The \emph{category of sheaves $\textbf{Sheaf}(X)$}
   has as objects all sheaves on $X$ and as arrows all natural transformations between
@@ -254,6 +268,8 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
     \text{res}_{U,X} \cong \restriction{F^{S_x}}{U}.
   \end{align*}
 \end{definition}
+\note{This definition is good, he also gives another one in terms of pullback,
+do we want that?}
 
 \begin{lemma}
   Let $B$ be a basis of $X$ and let $F,G$ be sheaves on $X$. Suppose, for all $U\in B$,
@@ -275,10 +291,6 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
   \end{proof}
 \end{lemma}
 
-\begin{example}
-  Let $X = S^2, and let $F(U) = \cc{f : U \to \R}, G(U) = \cc{f : U \to \R}$
-\end{example}
-
 \begin{theorem}
   Let $F$ be a locally constant sheaf. Then there exists a covering space
   $p:E\to X$ such that $\restriction{F}{E} \cong F$.
@@ -291,9 +303,16 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
   Take $p:S^1 \to S^1$ as $z\mapsto z^k$ for $k\geq 2$.
   Then $\Gamma\rr{-,p}$ is a locally constant sheaf.
   \begin{proof}
-    Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$. From complex analysis we know that there are $k$ points satisfying $z = z^k$, hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$. Since each interval is disjoint, we have that $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$. It therefore follows that locally we have a constant sheaf.
+    Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the 
+    form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$. 
+    From complex analysis we know that there are $k$ points satisfying $z = z^k$, 
+    hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that 
+    $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$. 
+    Since each interval is disjoint, we have that $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$. 
+    It therefore follows that locally we have a constant sheaf.
     \missingproof
-    \note{This is a sketch, I think it would be good to clarify some points, i.e. the isomorphism to the product, and the disjoint union with the epsilon stuff}
+    \note{This is a sketch, I think it would be good to clarify some points, 
+    i.e. the isomorphism to the product, and the disjoint union with the epsilon stuff}
   \end{proof}
 \end{example}
 
@@ -374,7 +393,8 @@ definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axiom
   \end{proof}
 \end{example}
 
-In the following theory, assume that every space is locally path connected.\note{This is the assumption in the lectures}
+In the following theory, assume that every space is locally path connected.
+\note{This is the assumption in the lectures}
 
 \begin{proposition}
   Let $p:\tilde X\to X$ and $p':\tilde{\tilde X}\to\tilde X$ be coverings.
@@ -408,8 +428,9 @@ In the following theory, assume that every space is locally path connected.\note
 
 \begin{theorem}
   If $X$ is locally path connected then there exists a cover
-  $(\tilde X,p)$, called a universal cover, such that, for all other covers $(Y,q)$ and choice of $x\in X$, $y\in Y$
-  with $p(y)=x$, there exists a unique covering homomorphism $f: \tilde X \to Y$ sending some fixed $x_0 \in \tilde X$ to $x$.
+  $(\tilde X,p)$, called a universal cover, such that, for all other covers $(Y,q)$ 
+  and choice of $x\in X$, $y\in Y$ with $p(y)=x$, there exists a unique covering 
+  homomorphism $f: \tilde X \to Y$ sending some fixed $x_0 \in \tilde X$ to $x$.
 \end{theorem}
 
 \begin{example}
@@ -465,6 +486,60 @@ In the following theory, assume that every space is locally path connected.\note
     \item $(\R^n, C^\infty)$.
   \end{itemize}
 \end{example}
+
+\section{Stalks}
+
+\begin{definition}
+  Let $F$ be a sheaf on $X$. For $x \in X$ the stalk of $F$ at $x$ is the set
+  \begin{align*}
+    F_x = \cc{(U, \sigma) : U \in \Open(X), \sigma \in F(U)} / \sim,
+  \end{align*}
+  where $(U, \sigma) \sim (V, \tau)$ if and only if there exists an open neighbourhood
+  of $x$ contained in $U \cap V$, such that $\sigma|_{U\cap V} = \tau|_{U\cap V}$.
+\end{definition}
+\note{fix to normal restriction map notation or whatever.. altho i think this is clearer}
+
+With this in mind, the following definition arises naturally.
+\begin{definition}
+  Let $U$ be an open neighbourhood of $x \in X$. Then there exists a map
+  \begin{align*}
+    F(U) \to F_x\\
+    \sigma \mapsto [(U, \sigma)].
+  \end{align*}
+  We usually denote $[(U, \sigma)]$ by $\sigma_x$ and call it the germ of $\sigma$ at $x$. 
+\end{definition}
+
+\begin{lemma}
+  If $F$ is a sheaf, then for all open $U \subseteq X$ the map
+  \begin{align*}
+    F(U) \mapsto \prod_{x \in U} F_x
+  \end{align*}
+  is an injection.
+
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{lemma}
+
+\begin{theorem}
+  Let $F, G$ be sheaves. Then the homomorphism $\eta :F \to G$ is an isomorphism
+  if and only if for all $x \in X$, the map
+  \begin{align*}
+    \eta_x : F_x \to G_x\\
+    [(U, \sigma)] \mapsto [(U, \eta_U(\sigma))] && \text{where $\eta_U : F(U) \to G(U)$},
+  \end{align*} is a bijection.
+
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{theorem}
+
+\begin{nonexample}
+  Let $exp : \R \to S^1$ and $f : S^1 \to S^1$ where $f$ maps $z \mapsto z^2$ 
+  be covering spaces of $S^1$. Then $\exp(\frac{1}{2}x)$ maps from $\R$ to the
+  covering space given by $f$. Then $\exp(\frac{1}{2}x)$ is not an isomorphism.
+\end{nonexample}
+\note{doublecheck if exp $1/2$ is the correct map!}
 
 \printbibliography
 
