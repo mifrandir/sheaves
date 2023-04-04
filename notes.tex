@@ -592,11 +592,13 @@ definition:
   \end{proof}
 \end{proposition}
 
+In particular, if $U\subseteq X$ is connected then $\mathscr F(U)=S$.
+
 \subsection{Locally constant sheaves}
 
 Constant sheaves are quite strict. We will see that a slightly less
 restrictive notion, that of a locally constant sheaf, comes up
-frequently. 
+frequently.
 
 \begin{definition}
   A \emph{locally constant sheaf $\mathscr F$ on $X$} is a sheaf such that,
@@ -608,13 +610,6 @@ frequently.
 \end{definition}
 
 
-\begin{theorem}
-  Let $F$ be a locally constant sheaf. Then there exists a covering space
-  $p:E\to X$ such that $\restriction{F}{E} \cong F$.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{theorem}
 
 \begin{example}
   Take $p:S^1 \to S^1$ as $z\mapsto z^k$ for $k\geq 2$.
@@ -635,13 +630,6 @@ frequently.
   \note{Check the map types not sure if correct}
 \end{nonexample}
 
-\begin{lemma}
-  If $F$ is a constant sheaf on $X$ and $V\subseteq U\subseteq X$ are opens then
-  \begin{align*}
-    \Gamma\rr{U, F} = \Gamma\rr{V,F}.
-  \end{align*}
-\end{lemma}
-
 \begin{example}
   Let $X=\R$ and let $\sim$ be the equivalence relation on $\R+\R$ such that
   $x\sim y$ iff $x=y\neq 0$ and let $Y=\rr{\R+\R}/\sim$. Let $p:Y\to X$ be
@@ -649,17 +637,9 @@ frequently.
   is not locally constant.
 \end{example}
 
-\section{Covering space}\label{sec:covering_space}
+\section{Covers}\label{sec:covering_space}
 
-\begin{definition}
-  Let $i:Y\to X$ an open map and $F$ a sheaf on $X$. Then
-  the \emph{pullback along $i$} is the sheaf $i^*F$ on $Y$
-  given by, for all $U\subseteq Y$,
-  \begin{align*}
-    i^*F(U) = F(i(U)).
-  \end{align*}
-\end{definition}
-
+\subsection{Covering spaces}
 
 \begin{definition}
   A \emph{covering space} for $X$ consists of
@@ -667,9 +647,13 @@ frequently.
     \item a topological space $\tilde X$;
     \item a map $p:\tilde X\to X$
   \end{enumerate}
-  such that, for all $x\in X$, there are sets $U,S$ with $x\in U$, $\inv p\rr{U}=S\times U$,
-  and, for all $s\in S$, $\restriction{p}{\cc{s}\times U}:\cc{S}\times U\to U$ is a
-  homeomorphism.
+  such that, for all $x\in X$, there are sets $U,S$ with $x\in U$,
+  satisfying
+  \begin{enumerate}
+    \item $\inv p\rr{U}=S\times U$;
+    \item for all $s\in S$, $\restrict{p}{\cc{s}\times U}:\cc{s}\times U\to U$ is a
+      homeomorphism.
+  \end{enumerate}
 \end{definition}
 
 \begin{notation}
@@ -677,26 +661,20 @@ frequently.
 \end{notation}
 
 \begin{example}
-  The map $p:S^1\to S^1$ given by $z\mapsto x^k$, for some $k$, is a covering.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{example}
-
-\begin{example}
-  Let $X$ be two copies of $S^1$ that intersect in a single point. Weirdly connected
-  graph?
+  The map $p:S^1\to S^1$ given by $x\mapsto x^k$, for some $k$, is a covering.
+  This is because the inverse image $\inv p\cc{x}$ has $k$
+  elements. We may choose a sufficiently small neighbourhood around $x$
+  such that the inverse image contains $k$ disjoint copies of $U$.
 \end{example}
 
 \begin{example}
   The map $p:\R^2\to\R$ given by $\rr{x,y}\mapsto x$ is not a covering.
-  \begin{proof}
-    \missingproof
-  \end{proof}
+  This is because the inverse image of a neighbourhood $U$ of $x$
+  is $\inv p(U) = U\times\R$. However, now \note{why???}
 \end{example}
 
 \begin{example}
-  The canonical map $p:\R^2\to\R^2/\Z$ is a covering.
+  The canonical map $q:\R^2\to\R^2/\Z$ is a covering.
   \begin{proof}
     \missingproof
   \end{proof}
@@ -715,6 +693,8 @@ frequently.
   is a map $f:\tilde X_1\to\tilde X_2$ such that $p_1 = p_2\circ f$.
 \end{definition}
 
+\subsection{Universal cover}
+
 \begin{definition}
   A path-connected covering of $X$ is a covering $(\tilde X,p)$ where $\tilde X$ is
   path-connected.
@@ -724,7 +704,7 @@ frequently.
   If $X$ is locally path connected then there exists a cover
   $(\tilde X,p)$ such that, for all other covers $(Y,q)$ and choice of $x\in X$, $y\in Y$
   with $p(y)=x$, there exists a unique homorphism of covers $f:(\tilde X,p)\to(Y,q)$
-  with \missingdef
+  with \note{finish}
 \end{theorem}
 
 \begin{theorem}
@@ -735,24 +715,14 @@ frequently.
   \end{proof}
 \end{theorem}
 
-\begin{definition}
-  Let $F$ be a sheaf on $X$ and let $x\in X$. The stalk $F_x$ of $F$ at $X$ is the
-  colimit of the sheaf applied to the category of open sets containing $x$.
-\end{definition}
-
-\begin{example}
-  \begin{itemize}
-    \item $(C^\infty)_0$.
-  \end{itemize}
-\end{example}
-
-\begin{lemma}
-  Let $F$ be a locally constant sheaf on $X$. Then, for all $x\in X$, there exists
-  an open $U\subseteq X$ with $x\in U$ such that $FU=F_x$.
+\begin{theorem}
+  Let $\mathscr F$ be a locally constant sheaf. Then there exists a covering
+  space $p:E\to X$ such that $\restrict{\mathscr F}{E} \cong F$.
+  \note{not entirely sure what this is supposed to say}
   \begin{proof}
     \missingproof
   \end{proof}
-\end{lemma}
+\end{theorem}
 
 \begin{theorem}
   Every locally constant sheaf is given by sections of some covering space.
@@ -980,8 +950,8 @@ One may think of a limit has having the least amount of information to be a cone
 This intuition is particularly helpful because limits are unique up to isomorphism.
 
 \begin{proposition}
-  Let $D:\cat{J}\to\cat{C}$ be a diagram. If $\phi:\Delta C\Rightarrow D$
-  and $\psi:\Delta C'\Rightarrow D$ are limits then they are isomorphic as cones.
+  Let $D:\cat{J}\to\cat{C}$ be a diagram. If $\phi:D\Rightarrow\Delta C$
+  and $\psi:D\Rightarrow\Delta C'$ are colimits then they are isomorphic as cocones.
   \begin{proof}
     Similar to \ref{prop:limits_are_unique}.
   \end{proof}
@@ -1004,121 +974,92 @@ all small colimits.
 \begin{theorem}
   Let $\scat J$ be a small category and $D:\scat J\to\Set$ a diagram. Then $D$ has a colimit.
 \end{theorem}
+
 \section{Stalks}
 
-\section{Geometry}
+Sheaves take values on open sets. That means that it is not immediately
+possible to talk about the value of a sheaf at a singular point. The
+values will always depend on the neighbourhood we choose. However,
+we may use colimits to define stalks which are a reasonable approximation
+of the value a a sheaf takes at a single point. This is particularly
+remarkable because there may not be a smallest open set containing
+the point yet the stalk always exists.
+
+\subsection{As colimits and sets}
+
+Let $X$ be a topological space and consider an $x\in X$. Let
+$\Open(x)$ be the category of open neighbourhoods of $x$ in $X$.
+We have an obvious inclusion $\Open_x(X)\hookrightarrow\Open(X)$.
+Note that this diagram may not have a limit in $\Open(X)$:
+e.g. if $X=\R$ then there is no smallest open set containing
+$x$. However, if we apply the sheaf then we have a diagram
+$\Open_x(X)^\text{op}\to\Set$ which does have a colimit.
 
 \begin{definition}
-  An \emph{$n$-dimensional $C^k$-manifold} consists of
-  \begin{enumerate}
-    \item a topological space $X$;
-    \item a sheaf of ring $\mathcal O_X:\Open(X)^{\text{op}}\to\textbf{Rings}$
-  \end{enumerate}
-  such that there exists an open cover $\cc{U_\alpha}_{\alpha\in\Lambda}$
-  together with isomorphisms
+  Let $\mathscr F$ be a sheaf on $X$ and let $x\in X$.
+  The \emph{stalk $\mathscr F_x$ of $\mathscr F$ at $X$} is the
+  colimit of the sheaf applied to the category of open sets containing $x$.
+  We may write
   \begin{align*}
-    (U_\alpha,\restriction{U_\alpha}{\mathcal O_X})\cong (\R^n,C^k).
+    \mathscr F_x = \colim_{U\ni x} \mathscr F(U).
   \end{align*}
+  Now let $U\subseteq X$ be open and $s\in\mathscr F(U)$.
+  The \emph{germ of $s$} is given by the value of $s$ under the
+  natural transformation $\phi:\mathscr F\Rightarrow\Delta\mathscr F_x$,
+  i.e. $\phi_U(s)\in\mathscr F_x$.
 \end{definition}
+
+While the above construction captures precisely what we mean by
+evaluating a sheaf at a point and provides us with pleasant universal
+properties, it may be difficult to calculate stalks this way. Luckily,
+there exists an explicit way to construct stalks:
+
+\begin{proposition}
+  \note{explicit construction!!!!}
+\end{proposition}
 
 \begin{example}
-  \begin{itemize}
-    \item $(\text{Spec} R,\mathcal O_{\text{Spec} R})$;
-    \item $(\C^n, \text{holos})$;
-    \item $(\R^n, C^\infty)$.
-  \end{itemize}
+  Stalks of sections $p:S^1\to S^1$ given by $x\mapsto x^k$.
+  \missingexample
 \end{example}
-
-\begin{definition}
-  Consider the topological space $S^2\subseteq\R^3$ given by
-  \begin{align*}
-    S^2 = \cc{x \in \R^3 : \vv{x}=1}
-  \end{align*}
-\end{definition}
 
 \begin{example}
-  The tangent bundle of
-  \begin{enumerate}
-    \item $\R$ is $T\R=\R\times\R$ together with the projection $x,y\mapsto x$;
-    \item $\R^2$ is $T\R^2 = \R^2\times\R^2$ together with the projection
-      $x,y\mapsto x$;
-    \item $S^1$ is the set
-      \begin{align*}
-        TS^1 = \cc{(x,y)\in S^1\times\R^2: x\cdot y = 0}.
-      \end{align*}
-  \end{enumerate}
+  Stalks of sections of the projection $p:S^1\times\cc{1,\ldots,k}\to S^1$.
+  \missingexample
 \end{example}
 
-The map $\R^2\to\R$ given by $x\mapsto\vv{x}$ induces a map
-$T\R^2 \to T\R^1$ given by
-\begin{align*}
-  x_0,x_1,y_0,y_1\mapsto (x_0^2 + x_1^2, 2x_0y_0+2x_1y_1).
-\end{align*}
+We now see that constant sheaves truly are constant.
 
-\begin{definition}
-  Vector fiels on $S^2$ are sections of the projection $TS^2\to S^2$.
-\end{definition}
+\begin{example}
+  Let $S$ be any set and $X$ a topological space. Then, for all
+  $x\in X$, $\mathscr C(X)_x = S$.
+\end{example}
 
-We can use the language of sheafs to obtain a meaningful result about
-vector fields: Every vector field on $S^2$ has a zero. This is referred to
-as the hedgehog theorem. \note{also hairy ball theorem}
+\subsection{Relation of sheaves and stalks}
 
-\begin{lemma}\note{maybe?}
-  If $V$ is a nonvanishing vector field on $D^2$, then the map
-  $\text{wind}_V:S^1\to S^1$ is homotopic to the identity.
+\begin{lemma}
+  Let $\mathscr F$ be a locally constant sheaf on $X$. Then, for all $x\in X$,
+  there exists an open $U\subseteq X$ with $x\in U$ such that $\mathscr
+  F(U)=\mathscr F_x$.
   \begin{proof}
     \missingproof
   \end{proof}
 \end{lemma}
 
 \begin{theorem}
-  The sheaf
-  \begin{align*}
-    TS^2 \setminus \cc{(x,0)}\to S^2
-  \end{align*}
-  has no global sections.
-  \begin{proof}[Proof sketch]
-    Given a nonvanishing vector field $V$ on $D^2$, we obtain a map
-    $\text{wind}_V:\partial D^2=S^1 \to S^1$ given by
-    \begin{align*}
-      \theta \mapsto \text{angle}(T\theta,V(\theta))
-    \end{align*}
-    Suppose for contradiction we have a non-vanishing vector field
-    on $S^2$. $D^2_{np}$ and $D^2_{sp}$ cover $S^1$ with common boundary
-    $S^1_{eq}$. Thus we have two winding maps
-    \begin{align*}
-      w_V^{D^2_{np}},w_V^{D^2_{sp}}:S^1\to S^1
-    \end{align*}
-    These are homotopic to $\text{id}$ and $-\text{id}$ which are not
-    homotopic.
-  \end{proof}
+  Let $\mathscr F$ and $\mathscr G$ on $X$. If, for all $x$,
+  $\mathscr F_x$ = $\mathscr G_x$, then every morphism of sheaves
+  $\mathscr F\to\mathscr G$ is an isomorphism.
 \end{theorem}
 
 \begin{example}
-  Consider the vector field $V:S^1\to D^2$ given by $\theta\mapsto(1,0)$.
-  Then $\text{wind}_V:S^1\to S^1$ corresponds to counter-clockwise rotation
-  by $\pi/2$.
+  Consider the maps $p:S^1\to S^1$ given by $x\mapsto x^k$ for some $k>1$
+  and the projection $p':S^1\times\cc{1,\ldots,k}\to S^1$. We have sheaves
+  of sections $\mathscr F=\Gamma(-,p)$ and $\mathscr G=\Gamma(-,p')$
+  and $\mathscr F_x=\mathscr G_x$ in the sense that the colimits are
+  isomorphic as cocones. However, there is no natural transformation
+  $\mathscr F\Rightarrow\mathscr G$ so these sheaves are not isomorphic.
 \end{example}
-
-Question: Which surfaces do have non-vanishing vector fields?
-
-\section{Continuous binary functions}
-
-Let $X$ be a topological space. Consider the sheaf $F$ given by
-\begin{align*}
-  FU = \cc{\text{continuous functions $U\to\Z/2\Z$}}.
-\end{align*}
-Observe $\vv{FU}=2^{\pi_0 U}$.
-
-\begin{proposition}
-  Let $F$ be a sheaf on $X$ such that, for all embeddings $f:D^n\to X$,
-  $F(\im f)=\Z/2\Z$. Then, for all opens $U\subseteq X$, $FU = 2^{\pi_0 U}$.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{proposition}
-
-\note{define fiber product}
 
 \printbibliography{}
 
