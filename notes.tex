@@ -7,11 +7,135 @@
 \addbibresource{sources.bib}
 
 \begin{document}
-\maketitle
+\maketitle\note{Add all authors}
 \tableofcontents
 \pagebreak
 
-\section{Category theory}\label{sec:categories_and_functors}
+\section{Motivation}\label{sec:motivation}
+
+\subsection{Real square roots}
+
+Consider the function $p:\R\to\R$ given by $x\mapsto x^2$. While this is
+not invertible in the strict sense, we may study its right inverses.
+These are called sections. We notice that there are no sections because,
+for $x < 0$, there is no $y\in\R$ such that $p(y) = x$. However,
+if we consider the restriction $p:\R\to\R_{\leq 0}$, there are plenty.
+The obvious choice is the usual square root function
+$\sqrt{-} : \R_{\geq 0} \to \R_{\geq 0}$. There are other options, though:
+for example, we have a section $s$ of $p$ given by
+\begin{align*}
+  s(x) = \begin{cases}
+    \sqrt{x} & \text{if }x<1 \\
+    -\sqrt{x} & \text{if }x\geq 0
+  \end{cases}
+\end{align*}
+This example should make the reader feel uncomfortable. While this is
+a perfectly valid section, it is not interesting at all. This is because
+we are considering $\R_{\geq 0}$ simply as a set, forgetting all its
+structure. In particular, $s$ is not continuous with respect to the
+standard topology.
+What happens if we restrict our attention to the continuous sections
+of $p$? Then we only obtain the two square root functions $\pm\sqrt{-}$.
+
+We have seen that restricting the function $p$ from $\R$ to $\R_{\geq 0}$
+adds sections. Let us now investigate what happens if we take this further.
+For any open interval $I\subseteq\R_{\geq 0}$, we have the same sections:
+the positive and negative square root functions defined on $I$. However,
+on $(0,1)\cup(1,2)$ the result is different: we can choose sections for
+each of the connected components independently without breaking continuity.
+That is, the operation of taking section is intrinsically related to
+the topology of the set we are considering.
+
+\subsection{Continuous sections}
+
+Let us backtrack and formalise the considerations from the previous
+considerations slightly. First, lets start with continuous sections:
+
+\begin{definition}
+  Let $X$ and $Y$ be topological spaces and let $p:Y\to X$ be continuous.
+  Then a \emph{section of $p$ at an open set $U\subseteq X$} is a continuous
+  map $s:U\to X$ such that $p\circ s = \id$.
+\end{definition}
+
+\begin{example}
+  Let $p : \R \to \R_{\geq 0}$ be the continuous map $x \mapsto x^2$.
+  Consider any open interval $I\subseteq\R_{\geq 0}$. Then
+  \begin{align*}
+    \Gamma\rr{I,p} = \{+\sqrt{-}, -\sqrt{-}\}.
+  \end{align*}
+  Noting that all opens $U\subseteq\R_{\geq 0}$ are unions of intervals,
+  we have
+  \begin{align*}
+    \vv{\Gamma(U,p)} = 2^{\pi_0(U)},
+  \end{align*}
+  where $\pi_0(U)$ is the set of connected components of $U$.
+\end{example}
+
+\subsection{Properties of continuous sections}
+
+We now have a formal way of talking about continuous sections on
+open sets of a toplogical space. Let us investigate the structure.
+Let us fix the function $p:\R\to\R_{\geq 0}$ given by $x\mapsto x^2$
+and investigate how open sets relate to their sections.
+
+Consider open sets $U,V\subseteq\R_{\geq 0}$ with
+$U\subseteq V$. What can we say about the sets $\Gamma(U,p)$ and
+$\Gamma(V,p)$ when $p$ is given by $x\mapsto x^2$. At a first glance,
+not much: if $U=(1,2)\cup(2,3)$ and $V=(1,3)$ then
+$\vv{\Gamma(U,p)}<\vv{\Gamma(V,p)}$. However, if
+$U=(1,2)$ and $V=(1,2)\cup(2,3)$ then the situation is reversed.
+We have to investigate how the sections arise in each case.
+
+Observe that, if we have a section $s:V\to\R_{\geq 0}$ and a subset
+$U\subseteq V$ then we may restrict it to a section $s':U\to\R_{\geq 0}$.
+Thus we have a map $\res_{V,U}:\Gamma(V,p)\to\Gamma(U,p)$. This is a
+general observation: such maps arise for any $p:Y\to X$ and for
+any inclusion of subsets $U\subseteq V\subseteq X$. Note that
+for subsets $U\subseteq V\subseteq W\subseteq X$, it does not matter
+how we go from $\Gamma(W,p)$ to $\Gamma(U,p)$:
+\begin{align*}
+  \res_{W,U} = \res_{V,U}\circ\res_{W,V}.
+\end{align*}
+
+More generally, opens $U,V\subseteq\R_{\geq 0}$ may not yield an
+inclusion. However, if we have sections $s:U\to\R$ and $s':V\to\R$,
+it may be possible to combine them. In particular, if $s$ and $s'$
+agree on the overlap $U\cap V$, then we have a section
+\begin{align*}
+  x \mapsto \begin{cases}
+    s(x) & \text{if }x\in U \\
+    s'(x) & \text{if }x\in V
+  \end{cases}
+\end{align*}
+in $\Gamma(U\cup V,p)$.
+
+\subsection{Complex square roots}
+
+Finally, let us consider a slightly more interesting example.
+Let $p:\C^\times\to\C$ be given by $x\mapsto x^2$. Note that we
+have to exclude zero from the domain to ensure that $p$ is continuous.
+Now $p$ is no longer surjective, meaning that there are no global
+sections whatsoever. However, even if we restrict our attention
+to $\im p =\C^\times$, there are no continous sections either. That is,
+$\Gamma(\C^\times,p)$ is empty.
+
+In general, an open set has sections if, and only if, it does not wrap
+around the origin. Intuitively, this is because for any point there are
+two possible square roots and moving around the origin continuously
+forces us to move from one to the other. Thus, whenever we close a loop
+around the origin, we introduce a discontinuity.
+
+This is remarkable: Even though the problematic point $0$ is not part
+of the topological space anymore, the construction $\Gamma(-,p)$
+seems to remember that it is special. Note that this does not happen
+for other points. If we were to remove, say, the point $3+i$ then
+everything would be fine: there are perfectly well-defined continuous
+sections of open sets that wrap around $3+i$.
+
+\section{Categorical prerequisites}\label{sec:categories_and_functors}
+
+Before we can formalise the theory of sheaves, we need to introduce some
+standard categorical constructions. For example, see \cite{maclane1997}.
 
 Categories generalise the notion of algebraic objects and their homomorphisms.
 Rather than focusing on the internal structure of the objects, we study the
@@ -70,6 +194,8 @@ with more than one object. \note{notation?}
       particularly important.
   \end{itemize}
 \end{example}
+
+\note{opposite category!}
 
 Observe some fundamental differences. Firstly, the arrows in $\Set$ and $\Grp$
 functions. Thinking about arrows in abstract categories as functions
@@ -233,6 +359,411 @@ formally, we define natural transformations.
 Chasing elements around like this is not pretty. Moreover, we have already
 seen that it is, in general, not possible. We will therefore make use of
 categorical language and diagrams whenever possible.
+
+
+\section{Sheaves}\label{sec:sheaves}
+
+We use the powerful language of category theory to make precise the
+notions touched on in section~\ref{sec:motivation}.
+We do so in two steps. Firstly, we notice that some properties of
+the continuous section construction are easily encoded in a particular
+type of functor called a presheaf. Secondly, we add some further
+properties that we will use to extend this to a sheaf.
+
+\subsection{Presheaves}
+
+For a topological space, each inclusion of open sets $U\subseteq V$
+gives rise to a restriction map $\Gamma(V,p)\to\Gamma(U,p)$.
+This turns out to be a contravariant functor. We now define a presheaf
+to be any such functor.
+
+\begin{definition}
+  Let $X$ be a topological space. A \emph{presheaf on $X$} is a functor
+  $\mathscr F:\Open\rr{X}^{\text{op}}\to\Set$.
+\end{definition}
+
+\begin{example}
+  Let $X, Y$ be topological spaces, and let $U \subseteq V \subseteq X$ be
+  open. Suppose $p : Y \to X$ is continuous. Then we can map from
+  $\Gamma\rr{V,p}$ to $\Gamma\rr{U,p}$ using the restriction map from $V$ to
+  $U$:
+  \begin{align*}
+    \res_{V,U} : \Gamma\rr{V,p} &\to \Gamma\rr{U,p}\\
+    \sigma &\mapsto \restrict{\sigma}{U}.
+  \end{align*}
+  By earlier considerations, the structure $\Gamma(-,p)$
+  given by
+  \begin{align*}
+    U &\mapsto \Gamma(U,p)\\
+    U\hookrightarrow V &\mapsto \res_{V,U}
+  \end{align*}
+  yields a functor.
+\end{example}
+
+\begin{notation}
+  For $U\subseteq V\subseteq X$, we simplify the notation by
+  writing $\res_{V,U} = \mathscr F(j)$ where $j:U\to V$ is the
+  inclusion. This is of course based on the construction of
+  continuous sections.
+\end{notation}
+
+Presheaves are functors so morphisms of presheaves are natural
+transformations. We thus have a category of presheaves on a topological
+space:
+
+\begin{definition}
+  Let $X$ be a topological space. The \emph{category of presheaves
+  on $X$}, $\Prsh_X$, has as objects all presheaves on $X$ and as
+  arrows all natural transformations between them.
+\end{definition}
+
+If we denote by $\bb{\cat{C},\cat{D}}$ the category of functors
+$\cat{C}\to\cat{D}$ then $\Prsh_X = [\Open(X)^{\text{op}},\Set]$.
+
+\note{Presheaf category}
+
+\note{maybe we can do something interesting with presheaves alone?
+show why we would like the sheaf properties?}
+
+\subsection{Locality and gluing}
+
+The continuous section construction has two further properties that
+the notion of a presheaf does not cover. Firstly, we observed that
+knowing the sections on all connected components gives us full
+information about the sections of the whole set. We generalise this to
+general open covers.
+
+\begin{definition}
+  A presheaf $\mathscr F$ on $X$ satisfies the \emph{locality condition}
+  if, for all opens $U\subseteq X$, open covers $\cc{U_i}$ of $U$,
+  and $s,t\in\mathscr F(U)$, if $\res_{U,U_i}(s) = \res_{U,U_j}(t)$
+  then $s=t$.
+\end{definition}
+
+\begin{example}
+  For any continuous $p:Y\to X$, the continuous section
+  construction $\Gamma(-,p)$ satisfies the locality condition.
+  This is straightforward to see because each $x\in U$ is in
+  some $x\in U_i$ but we know $\restrict{s}{U_i}=\restrict{t}{U_i}$
+  so $s(x) = t(x)$.
+\end{example}
+
+\note{Prove something using a presheaf with just locality?}
+
+\note{non-example; presheaf that doesn't have locality?}
+
+The second property that we deem desirable is the ability to glue
+non-contradictory sections together. That is, if we have sections
+on different open sets that agree on the (possibly empty) overlap,
+then there is a combined section. Once again, we require this to
+hold for arbitrary open covers.
+
+\begin{definition}
+  A presheaf $\mathscr F$ on $X$ satisfies the \emph{gluing condition}
+  if, for all opens $U\subseteq X$, open covers $\cc{U_i}$ of $U$,
+  and families $\cc{s_i}$ with $s_i\in\mathscr F(U_i)$ and
+  $\res_{U_i,U_i\cap U_j}(s_i) = \res_{U_j,U_i\cap U_j}(s_j)$
+  for all $i,j$, there exists $s\in\mathscr F(U)$ such that,
+  for all $i$, $\res_{U,U_i}(s) = s_i$.
+\end{definition}
+
+\begin{example}
+  For any continuous $p:Y\to X$, the continuous section construction
+  $\Gamma(-,p)$ satisfies the gluing property. Consider an open cover
+  $\cc{U_i}$ of $U\subseteq X$ and sections $s_i:U_i\to Y$. These are
+  glued together to a section $s:U\to Y$ in the obvious way:
+  \begin{align*}
+    s(x) = s_i(x) \text{ if $x\in U_i$}.
+  \end{align*}
+\end{example}
+
+It turns out that a presheaf that satisfies both the locality and the
+gluing property is particularly suitable to describe geometrical
+and topological properties.
+
+\begin{definition}
+  Let $X$ be a topological space. A \emph{sheaf on $X$} is a presheaf
+  on $X$ that satisfies the locality and gluing conditions.
+\end{definition}
+
+\begin{example}
+  Let $p:Y\to X$ be continuous. The continuous section construction
+  $\Gamma(-,p)$ is a sheaf. We will call this the \emph{sheaf of
+  sections of $p$}:
+  \begin{align*}
+    \Gamma(-,p) : \Open(X)^{\text{op}} \to \Set.
+  \end{align*}
+\end{example}
+
+We are particularly interested in morphisms between objects. Sheaves
+are no exceptions.
+\begin{definition}
+  Let $\mathscr F,\mathscr G$ be sheaves on $X$. A \emph{morphism from
+  $\mathscr F$ to $\mathscr G$} is a natural transformation
+  $\mathscr F\Rightarrow\mathscr G$.
+\end{definition}
+
+Notably, the category of sheaves is a full subcategory
+of the corresponding category of presheaves. That is, a morphism
+of sheaves is a morphism of presheaves between sheaves.
+
+\begin{definition}
+  Let $X$ be a topological space. The \emph{category of sheaves on $X$},
+  $\Sheaf_X$, has as objects all sheaves on $X$ and as arrows all natural
+  transformations between them.
+\end{definition}
+
+We have the obvious inclusion $\Sheaf_X\hookrightarrow \Prsh_X$.
+
+The sheaf axioms allows us to make use of the topology of the underlying
+space, rather than just the poset of its opens. In particular, choosing
+how a morphism acts on the sections of basis elements is sufficient
+to define the whole morphism of sheaves.
+
+\begin{lemma}
+  Let $B$ be a basis of $X$ and let $F,G$ be sheaves on $X$. Suppose, for all $U\in B$,
+  we have a map $\eta_U:FU\to GU$ such that, for all $V\subseteq U$,
+  \begin{equation}
+    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGVSJdLFswLDEsIkdVIl0sWzIsMCwiRlYiXSxbMiwxLCJHViJdLFswLDIsIkZpIl0sWzAsMSwiXFxldGFfVSIsMl0sWzIsMywiXFxldGFfViJdLFsxLDMsIkdpIiwyXV0=
+    \begin{tikzcd}
+      FU && FV \\
+      GU && GV
+      \arrow["Fi", from=1-1, to=1-3]
+      \arrow["{\eta_U}"', from=1-1, to=2-1]
+      \arrow["{\eta_V}", from=1-3, to=2-3]
+      \arrow["Gi"', from=2-1, to=2-3]
+    \end{tikzcd}
+  \end{equation}
+  Then there exists a unique sheaf homomorphism $\tilde\eta : F\to G$.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{lemma}
+
+\section{Constant and locally constant}\label{sec:locally_constant_sheaves}
+
+Many sheaves that we consider actually satsify stronger conditions
+than merely locality and gluing. In this section we investigate constant
+and locally constant sheaves.
+
+\subsection{Constant sheaves are not constant}
+
+Let $X$ be a topological space. In general, a constant assignment
+$U\mapsto S$ will not satisfy the sheaf axioms. Nonetheless,
+we are interested in defining the notion of a particularly simple
+sheaf on $X$ by making it as constant as possible. We say a sheaf
+is constant if it is constant on every connected component.
+
+\begin{definition}
+  Let $S$ be a set and $X$ a topological sapce. Then
+  the \emph{constant sheaf $\mathscr C(S)$ on $X$} is the sheaf of sections
+  of the projection $S\times X\to X$.
+  \note{We diverge from the course notation because $\mathscr F^S$ seems
+    (a) cumbersome to write, (b) non-standard, and (c) not very good
+  at indicating that anything about the sheaf is constant.}
+\end{definition}
+
+\begin{example}\label{ex:constant_sheaf}
+  Consider a topological space $X$ and $S=\cc{0,1}$. For any
+  connected open $U\subseteq X$, there are two sections:
+  \begin{align*}
+    s_0:x \mapsto(0,x), \hs s_1:x\mapsto(1,x).
+  \end{align*}
+  If an open $U$ has connected components $V$ and $V'$ then
+  it is possible to choose different a different section for each
+  while preserving continuity. Thus a section on an open $U$ amounts
+  to assigning $0$ or $1$ to each connected component $V\in\pi_0(U)$.
+\end{example}
+
+The definition is elegant in that it obviously satisfies the sheaf
+axioms but it is not clear in what sense such a sheaf is constant.
+To clear things up, we generalise the example \ref{ex:constant_sheaf}
+to a more general result, which may be considered as an alternative
+definition:
+
+\begin{proposition}
+  A sheaf $\mathscr F$ on $X$ is constant if, for some set $S$ and all opens $U\subseteq X$,
+  \begin{equation}
+    \mathscr F(U) = \prod_{\pi_0U}S
+  \end{equation}
+  where $\pi_0(U)$ is the set of connected components of $U$.
+  \begin{proof}
+    Analogous to example \ref{ex:constant_sheaf}.
+  \end{proof}
+\end{proposition}
+
+\subsection{Locally constant sheaves}
+
+Constant sheaves are quite strict. We will see that a slightly less
+restrictive notion, that of a locally constant sheaf, comes up
+frequently. 
+
+\begin{definition}
+  A \emph{locally constant sheaf $\mathscr F$ on $X$} is a sheaf such that,
+  for all $x\in X$, there exists an open neighbourhood $U$ of $x$,
+  a set $S_x$, and an isomorphism
+  \begin{align*}
+    \restrict{\mathscr F}{U} \cong \mathscr C(S_x).
+  \end{align*}
+\end{definition}
+
+
+\begin{theorem}
+  Let $F$ be a locally constant sheaf. Then there exists a covering space
+  $p:E\to X$ such that $\restriction{F}{E} \cong F$.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{theorem}
+
+\begin{example}
+  Take $p:S^1 \to S^1$ as $z\mapsto z^k$ for $k\geq 2$.
+  Then $\Gamma\rr{-,p}$ is a locally constant sheaf.
+  \begin{proof}
+    Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$. From complex analysis we know that there are $k$ points satisfying $z = z^k$, hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$. Since each interval is disjoint, we have that $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$. It therefore follows that locally we have a constant sheaf.
+    \missingproof
+    \note{This is a sketch, I think it would be good to clarify some points, i.e. the isomorphism to the product, and the disjoint union with the epsilon stuff}
+  \end{proof}
+\end{example}
+
+\begin{nonexample}
+  Take $p: \mathbb{R} \to \mathbb{R}$ as $x \mapsto (x-1)(x+1)$.
+  Then $\Gamma\rr{-,p}$ is not a locally constant sheaf.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+  \note{Check the map types not sure if correct}
+\end{nonexample}
+
+\begin{lemma}
+  If $F$ is a constant sheaf on $X$ and $V\subseteq U\subseteq X$ are opens then
+  \begin{align*}
+    \Gamma\rr{U, F} = \Gamma\rr{V,F}.
+  \end{align*}
+\end{lemma}
+
+\begin{example}
+  Let $X=\R$ and let $\sim$ be the equivalence relation on $\R+\R$ such that
+  $x\sim y$ iff $x=y\neq 0$ and let $Y=\rr{\R+\R}/\sim$. Let $p:Y\to X$ be
+  given by the identity. Then the sheaf of sections $\Gamma\rr{-,p}$
+  is not locally constant.
+\end{example}
+
+\section{Covering space}\label{sec:covering_space}
+
+\begin{definition}
+  Let $i:Y\to X$ an open map and $F$ a sheaf on $X$. Then
+  the \emph{pullback along $i$} is the sheaf $i^*F$ on $Y$
+  given by, for all $U\subseteq Y$,
+  \begin{align*}
+    i^*F(U) = F(i(U)).
+  \end{align*}
+\end{definition}
+
+
+\begin{definition}
+  A \emph{covering space} for $X$ consists of
+  \begin{enumerate}
+    \item a topological space $\tilde X$;
+    \item a map $p:\tilde X\to X$
+  \end{enumerate}
+  such that, for all $x\in X$, there are sets $U,S$ with $x\in U$, $\inv p\rr{U}=S\times U$,
+  and, for all $s\in S$, $\restriction{p}{\cc{s}\times U}:\cc{S}\times U\to U$ is a
+  homeomorphism.
+\end{definition}
+
+\begin{notation}
+  We denote a covering $(\tilde X,p)$ of $X$ by $p:\tilde X\to X$.
+\end{notation}
+
+\begin{example}
+  The map $p:S^1\to S^1$ given by $z\mapsto x^k$, for some $k$, is a covering.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{example}
+
+\begin{example}
+  Let $X$ be two copies of $S^1$ that intersect in a single point. Weirdly connected
+  graph?
+\end{example}
+
+\begin{example}
+  The map $p:\R^2\to\R$ given by $\rr{x,y}\mapsto x$ is not a covering.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{example}
+
+\begin{example}
+  The canonical map $p:\R^2\to\R^2/\Z$ is a covering.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{example}
+
+\begin{proposition}
+  Let $p:\tilde X\to X$ and $p':\tilde{\tilde X}\to\tilde X$ be coverings.
+  Then $pp':\tilde{\tilde{X}}\to X$ is a covering.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{proposition}
+
+\begin{definition}
+  Let $p_1:\tilde X_1\to X$ and $p_2:\tilde X_2\to X$ be coverings. A covering homomorphism
+  is a map $f:\tilde X_1\to\tilde X_2$ such that $p_1 = p_2\circ f$.
+\end{definition}
+
+\begin{definition}
+  A path-connected covering of $X$ is a covering $(\tilde X,p)$ where $\tilde X$ is
+  path-connected.
+\end{definition}
+
+\begin{theorem}
+  If $X$ is locally path connected then there exists a cover
+  $(\tilde X,p)$ such that, for all other covers $(Y,q)$ and choice of $x\in X$, $y\in Y$
+  with $p(y)=x$, there exists a unique homorphism of covers $f:(\tilde X,p)\to(Y,q)$
+  with \missingdef
+\end{theorem}
+
+\begin{theorem}
+  Let $p:\tilde X\to X$ be a covering. If $\tilde X$ is simply connected then
+  $\tilde X$ is the universal cover.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{theorem}
+
+\begin{definition}
+  Let $F$ be a sheaf on $X$ and let $x\in X$. The stalk $F_x$ of $F$ at $X$ is the
+  colimit of the sheaf applied to the category of open sets containing $x$.
+\end{definition}
+
+\begin{example}
+  \begin{itemize}
+    \item $(C^\infty)_0$.
+  \end{itemize}
+\end{example}
+
+\begin{lemma}
+  Let $F$ be a locally constant sheaf on $X$. Then, for all $x\in X$, there exists
+  an open $U\subseteq X$ with $x\in U$ such that $FU=F_x$.
+  \begin{proof}
+    \missingproof
+  \end{proof}
+\end{lemma}
+
+\begin{theorem}
+  Every locally constant sheaf is given by sections of some covering space.
+\end{theorem}
+
+\begin{theorem}
+  In a simply connected space, a sheaf is locally constant if, and only if,
+  it is constant.
+\end{theorem}
+
+\section{Limits and colimits}
 
 \subsection{Limits}
 
@@ -473,338 +1004,7 @@ all small colimits.
 \begin{theorem}
   Let $\scat J$ be a small category and $D:\scat J\to\Set$ a diagram. Then $D$ has a colimit.
 \end{theorem}
-
-\section{Sections}\label{sec:sections}
-
-\begin{definition}
-  Let $X,Y$ be topological spaces and $p:Y\to X$ be a continuous map. A continuous section
-  is a continuous map $s:X\to Y$ such that $p \circ s = \id_X$.
-
-  More generally, let $p:Y\to X$ be an arrow in a category $\cat{C}$. Then a section
-  is an arrow $s:X\to Y$ such that $p\circ s=\id_X$ in $\cat{C}$.
-\end{definition}
-
-\begin{remark}\label{remark:continuity_and_sections}
-  The existence of a section implies that the map $p$ is surjective. The converse
-  depends on the axiom of choice. If $p$ is surjective, then there exists a section
-  of $p$ if we accept the axiom.
-\end{remark}
-
-\begin{definition}
-  Let $X,Y$ be topological spaces, let $U\subseteq X$ be open, and let $p:Y\to X$ be
-  a continuous map. Then a \emph{section of $p$ at $U$} is a continuous map
-  $s:U\to X$ such that, for all $x\in U$, $\rr{p\circ s}\rr{x}=x$.
-  We note by $\Gamma(U,p)$ the set of all continuous sections of $p$ at $U$.
-\end{definition}
-
-\begin{example}
-  Let let $p : \mathbb{R} \to \mathbb{R}$ be the continuous map $x \mapsto x^2$.
-  Consider $U = \br{1,\infty}$. Then
-  \begin{align*}
-    \Gamma\rr{U,p} = \{+\sqrt{\phantom{a}}, -\sqrt{\phantom{a}}\}.
-  \end{align*}
-  More generally, we may define a square root function on $U$ as a continuous map
-  $\sigma  : U \to \mathbb{R}$ such that for every  $u \in U$ we have $\sigma(u)^2 = u$.
-  Then, for all opens $U\subseteq\R$, $\Gamma(U,p)$ is the set of square root
-  functions on $U$. In particular, we have
-  \begin{align*}
-    \vv{\Gamma(U,p)} = 2^{\pi_0(U)}.
-  \end{align*}
-\end{example}
-
-\begin{example}\note{improve explanation}
-  \label{ex:complexroot}
-  Consider the continuous map $p : \C^\times \to \C^\times$ sending
-  $z \mapsto z^2$. Note that this map is not continuous if considered over all of
-  $\C$.
-
-  Let $U\subseteq\C^\times$ be open and connected. If $U$ is
-  contained in one of the quadrants of the complex plane, then
-  \begin{align*}
-    \vv{\Gamma\rr{U, p}} = 2.
-  \end{align*}
-  This makes sense, because for every continuous section $s:U\to\C^\times$ we have
-  a different section $-s$. It is straightforward to show that these are the only
-  two sections.
-
-  However, if we take $U$ to be the open disc $\cc{x \in \C^\times : \vv{x}<1}$
-  then $\Gamma(U,p)=\emptyset$, i.e.~there are no continuous sections. This is
-  remarkable: Even though the problematic point $0$ is not part of the
-  topological space $\C^\times$, the map $U\mapsto\Gamma(U,p)$ seems to
-  remember that it is special.
-\end{example}
-
-For continuous maps $p : Y \to X$, $\Gamma(-,p)$ contains information
-about how homeomorphic $p$ is.
-
-\begin{proposition}
-  Let $p : Y \to X$ be a continuous map and let $U\subseteq X$ be open.
-  If $p$ is a homemorphism then its inverse restricted to $U$
-  is in $\Gamma(U,p)$.
-\end{proposition}
-
-\begin{remark}
-  If a map $p : X \to Y$ is locally homeomorphic, then we can recover
-  $p$ from its sections. In particular, we will see that this relates to the
-  concept of \emph{gluing}.
-\end{remark}
-
-\section{Sheaves}\label{sec:sheaves}
-
-\begin{definition}
-  Let $X$ be a topological space. A \emph{presheaf on $X$} is a functor
-  $F:\Open\rr{X}^{\text{op}}\to\Set$.
-\end{definition}
-
-\begin{notation}
-  Following the sheaf of sections, we adapt the following:
-  \begin{enumerate}
-    \item for opens $U\subseteq X$, we write $\Gamma\rr{U,F}=F$;
-    \item for inclusions $j:U\to V$ in $\Open\rr{X}$, $\res_{U,V}=Fj$.
-  \end{enumerate}
-\end{notation}
-
-\begin{example}[Restriction Map]
-  Let $X, Y$ be topological spaces, and let $U \subseteq V \subseteq X$ be open. Suppose $p : Y \to X$ is continuous. Then we can map from $\Gamma\rr{V,p}$ to $\Gamma\rr{U,p}$ using the restriction map from $U$ to $V$:
-  \begin{align*}
-    \res_{U,V} : \Gamma\rr{V,p} &\to \Gamma\rr{U,p}\\
-    \sigma &\mapsto \sigma|_U.
-  \end{align*}
-\end{example}
-
-\begin{definition}
-  Let $X$ be a topological space. A \emph{sheaf on $X$} is a presheaf $F$ on $X$
-  such that
-  \begin{enumerate}
-    \item for every open cover $\cc{U_i}_{i\in I}$ of an open set $U\subseteq X$ and
-      $s,t\in\Gamma\rr{U,F}$,
-      \begin{align*}
-        \forall i,j\in I.\: \res_{U_i,U}(s) = \res_{U_j,U}(t)
-      \end{align*}
-      implies $s=t$;
-    \item for every open cover $\cc{U_i}_{i\in I}$ of an open set $U\subseteq X$
-      and every family $\cc{s_i}_{i\in I}$ such that $s_i\in FU_i$, for all $i$,
-      if, for all $i,j\in I$, $\restriction{s_i}{U_i\cap U_j} = \restriction{s_j}{U_i\cap U_j}$,
-      then there exists an $s\in FU$ such that, for all $i\in I$,
-      $\restriction{s}{U_i}=s_i$.
-  \end{enumerate}
-\end{definition}
-
-\begin{definition}
-  Let $F,G$ be sheaves on $X$. A \emph{homomorphism $\eta:F\to G$} is
-  a natural transformation $F\Rightarrow G$.
-\end{definition}
-
-\begin{definition}
-  Let $X$ be a topological space. The \emph{category of sheaves $\textbf{Sheaf}(X)$}
-  has as objects all sheaves on $X$ and as arrows all natural transformations between
-  them.
-\end{definition}
-
-\section{Locally constant sheaves}\label{sec:locally_constant_sheaves}
-
-We say a sheaf is constant if it is constant on every connected component. We choose this
-definition because an assignment $U\mapsto S$ cannot satisfy the the sheaf axioms.
-
-\begin{definition}
-  Let $S$ be a set and $X$ a topological sapce. Then
-  the constant sheaf $F^S$ is the sheaf of sections
-  of the projection $\pi:S\times X\to X$.
-\end{definition}
-
-
-\begin{definition}[Constant sheaf]
-  A sheaf $F$ on $X$ is constant if, for some set $S$ and all opens $U\subseteq X$,
-  \note{verify}
-  \begin{equation}
-    \Gamma(U,F) = \prod_{\pi_0U}S
-  \end{equation}
-  where $\pi_0U$ is the set of connected components of $U$.
-\end{definition}
-
-\begin{definition}
-  A \emph{locally constant sheaf $F$ on $X$} is a sheaf such that,
-  for all $x\in X$, there exists an open neighbourhood $U$ of $x$,
-  a set $S_x$, and an isomorphism
-  \begin{align*}
-    \text{res}_{U,X} \cong \restriction{F^{S_x}}{U}.
-  \end{align*}
-\end{definition}
-
-\begin{lemma}
-  Let $B$ be a basis of $X$ and let $F,G$ be sheaves on $X$. Suppose, for all $U\in B$,
-  we have a map $\eta_U:FU\to GU$ such that, for all $V\subseteq U$,
-  \begin{equation}
-    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGVSJdLFswLDEsIkdVIl0sWzIsMCwiRlYiXSxbMiwxLCJHViJdLFswLDIsIkZpIl0sWzAsMSwiXFxldGFfVSIsMl0sWzIsMywiXFxldGFfViJdLFsxLDMsIkdpIiwyXV0=
-    \begin{tikzcd}
-      FU && FV \\
-      GU && GV
-      \arrow["Fi", from=1-1, to=1-3]
-      \arrow["{\eta_U}"', from=1-1, to=2-1]
-      \arrow["{\eta_V}", from=1-3, to=2-3]
-      \arrow["Gi"', from=2-1, to=2-3]
-    \end{tikzcd}
-  \end{equation}
-  Then there exists a unique sheaf homomorphism $\tilde\eta : F\to G$.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{lemma}
-
-\begin{theorem}
-  Let $F$ be a locally constant sheaf. Then there exists a covering space
-  $p:E\to X$ such that $\restriction{F}{E} \cong F$.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{theorem}
-
-\begin{example}
-  Take $p:S^1 \to S^1$ as $z\mapsto z^k$ for $k\geq 2$.
-  Then $\Gamma\rr{-,p}$ is a locally constant sheaf.
-  \begin{proof}
-    Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$. From complex analysis we know that there are $k$ points satisfying $z = z^k$, hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$. Since each interval is disjoint, we have that $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$. It therefore follows that locally we have a constant sheaf.
-    \missingproof
-    \note{This is a sketch, I think it would be good to clarify some points, i.e. the isomorphism to the product, and the disjoint union with the epsilon stuff}
-  \end{proof}
-\end{example}
-
-\begin{nonexample}
-  Take $p: \mathbb{R} \to \mathbb{R}$ as $x \mapsto (x-1)(x+1)$.
-  Then $\Gamma\rr{-,p}$ is not a locally constant sheaf.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-  \note{Check the map types not sure if correct}
-\end{nonexample}
-
-\begin{lemma}
-  If $F$ is a constant sheaf on $X$ and $V\subseteq U\subseteq X$ are opens then
-  \begin{align*}
-    \Gamma\rr{U, F} = \Gamma\rr{V,F}.
-  \end{align*}
-\end{lemma}
-
-\begin{example}
-  Let $X=\R$ and let $\sim$ be the equivalence relation on $\R+\R$ such that
-  $x\sim y$ iff $x=y\neq 0$ and let $Y=\rr{\R+\R}/\sim$. Let $p:Y\to X$ be
-  given by the identity. Then the sheaf of sections $\Gamma\rr{-,p}$
-  is not locally constant.
-\end{example}
-
-\section{Covering space}\label{sec:covering_space}
-
-\begin{definition}
-  Let $i:Y\to X$ an open map and $F$ a sheaf on $X$. Then
-  the \emph{pullback along $i$} is the sheaf $i^*F$ on $Y$
-  given by, for all $U\subseteq Y$,
-  \begin{align*}
-    i^*F(U) = F(i(U)).
-  \end{align*}
-\end{definition}
-
-
-\begin{definition}
-  A \emph{covering space} for $X$ consists of
-  \begin{enumerate}
-    \item a topological space $\tilde X$;
-    \item a map $p:\tilde X\to X$
-  \end{enumerate}
-  such that, for all $x\in X$, there are sets $U,S$ with $x\in U$, $\inv p\rr{U}=S\times U$,
-  and, for all $s\in S$, $\restriction{p}{\cc{s}\times U}:\cc{S}\times U\to U$ is a
-  homeomorphism.
-\end{definition}
-
-\begin{notation}
-  We denote a covering $(\tilde X,p)$ of $X$ by $p:\tilde X\to X$.
-\end{notation}
-
-\begin{example}
-  The map $p:S^1\to S^1$ given by $z\mapsto x^k$, for some $k$, is a covering.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{example}
-
-\begin{example}
-  Let $X$ be two copies of $S^1$ that intersect in a single point. Weirdly connected
-  graph?
-\end{example}
-
-\begin{example}
-  The map $p:\R^2\to\R$ given by $\rr{x,y}\mapsto x$ is not a covering.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{example}
-
-\begin{example}
-  The canonical map $p:\R^2\to\R^2/\Z$ is a covering.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{example}
-
-\begin{proposition}
-  Let $p:\tilde X\to X$ and $p':\tilde{\tilde X}\to\tilde X$ be coverings.
-  Then $pp':\tilde{\tilde{X}}\to X$ is a covering.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{proposition}
-
-\begin{definition}
-  Let $p_1:\tilde X_1\to X$ and $p_2:\tilde X_2\to X$ be coverings. A covering homomorphism
-  is a map $f:\tilde X_1\to\tilde X_2$ such that $p_1 = p_2\circ f$.
-\end{definition}
-
-\begin{definition}
-  A path-connected covering of $X$ is a covering $(\tilde X,p)$ where $\tilde X$ is
-  path-connected.
-\end{definition}
-
-\begin{theorem}
-  If $X$ is locally path connected then there exists a cover
-  $(\tilde X,p)$ such that, for all other covers $(Y,q)$ and choice of $x\in X$, $y\in Y$
-  with $p(y)=x$, there exists a unique homorphism of covers $f:(\tilde X,p)\to(Y,q)$
-  with \missingdef
-\end{theorem}
-
-\begin{theorem}
-  Let $p:\tilde X\to X$ be a covering. If $\tilde X$ is simply connected then
-  $\tilde X$ is the universal cover.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{theorem}
-
-\begin{definition}
-  Let $F$ be a sheaf on $X$ and let $x\in X$. The stalk $F_x$ of $F$ at $X$ is the
-  colimit of the sheaf applied to the category of open sets containing $x$.
-\end{definition}
-
-\begin{example}
-  \begin{itemize}
-    \item $(C^\infty)_0$.
-  \end{itemize}
-\end{example}
-
-\begin{lemma}
-  Let $F$ be a locally constant sheaf on $X$. Then, for all $x\in X$, there exists
-  an open $U\subseteq X$ with $x\in U$ such that $FU=F_x$.
-  \begin{proof}
-    \missingproof
-  \end{proof}
-\end{lemma}
-
-\begin{theorem}
-  Every locally constant sheaf is given by sections of some covering space.
-\end{theorem}
-
-\begin{theorem}
-  In a simply connected space, a sheaf is locally constant if, and only if,
-  it is constant.
-\end{theorem}
+\section{Stalks}
 
 \section{Geometry}
 
