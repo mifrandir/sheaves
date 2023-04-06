@@ -1,13 +1,13 @@
 \documentclass{article}
 \usepackage{style}
 
-\author{Franz Miltz}
+\author{Franz Miltz, Wiktor Kaluza}
 \title{Sheaf theory}
 
 \addbibresource{sources.bib}
 
 \begin{document}
-\maketitle\note{Add all authors}
+\maketitle
 \tableofcontents
 \pagebreak
 
@@ -15,18 +15,18 @@
 
 \subsection{Real square roots}
 
-Consider the function $p:\R\to\R$ given by $x\mapsto x^2$. While this is
+Consider the function $p:\R\to\R$ given by $x\mapsto x^2$. While it is
 not invertible in the strict sense, we may study its right inverses.
 These are called sections. We notice that there are no sections because,
 for $x < 0$, there is no $y\in\R$ such that $p(y) = x$. However,
-if we consider the restriction $p:\R\to\R_{\leq 0}$, there are plenty.
+if we consider the restriction $p:\R\to\R_{\geq 0}$, there are plenty.
 The obvious choice is the usual square root function
-$\sqrt{-} : \R_{\geq 0} \to \R_{\geq 0}$. There are other options, though:
+$\sqrt{-} : \R_{\geq 0} \to \R_{\geq 0}$. However, this is not the only option:
 for example, we have a section $s$ of $p$ given by
 \begin{align*}
   s(x) = \begin{cases}
-    \sqrt{x} & \text{if }x<1 \\
-    -\sqrt{x} & \text{if }x\geq 0
+    \sqrt{x} & \text{if }0 \leq x<1 \\
+    -\sqrt{x} & \text{if }x\geq 1
   \end{cases}
 \end{align*}
 This example should make the reader feel uncomfortable. While this is
@@ -57,8 +57,16 @@ considerations slightly. First, lets start with continuous sections:
   map $s:U\to X$ such that $p\circ s = \id$.
 \end{definition}
 
+\begin{definition}
+  Let $X$ and $Y$ be topological spaces and let $p : Y \to X$ be continuous.
+  Then for all open $U \subseteq X$ we define the construction $\Gamma(U, p)$ by
+  \begin{align*}
+    \Gamma(U, p) = \cc{\text{sections of $p$ at $U$}}.
+  \end{align*}
+\end{definition}
+
 \begin{example}
-  Let $p : \R \to \R_{\geq 0}$ be the continuous map $x \mapsto x^2$.
+  Let $p : \R \to \R_{\geq 0}$ be the continuous map $z \mapsto z^2$.
   Consider any open interval $I\subseteq\R_{\geq 0}$. Then
   \begin{align*}
     \Gamma\rr{I,p} = \{+\sqrt{-}, -\sqrt{-}\}.
@@ -71,6 +79,9 @@ considerations slightly. First, lets start with continuous sections:
   where $\pi_0(U)$ is the set of connected components of $U$.
 \end{example}
 
+We will later see that this construction is what we call a sheaf, and we will
+call it the \emph{sheaf of sections}.
+
 \subsection{Properties of continuous sections}
 
 We now have a formal way of talking about continuous sections on
@@ -80,7 +91,7 @@ and investigate how open sets relate to their sections.
 
 Consider open sets $U,V\subseteq\R_{\geq 0}$ with
 $U\subseteq V$. What can we say about the sets $\Gamma(U,p)$ and
-$\Gamma(V,p)$ when $p$ is given by $x\mapsto x^2$. At a first glance,
+$\Gamma(V,p)$ when $p$ is given by $x\mapsto x^2$? At a first glance,
 not much: if $U=(1,2)\cup(2,3)$ and $V=(1,3)$ then
 $\vv{\Gamma(U,p)}<\vv{\Gamma(V,p)}$. However, if
 $U=(1,2)$ and $V=(1,2)\cup(2,3)$ then the situation is reversed.
@@ -92,7 +103,7 @@ Thus we have a map $\res_{V,U}:\Gamma(V,p)\to\Gamma(U,p)$. This is a
 general observation: such maps arise for any $p:Y\to X$ and for
 any inclusion of subsets $U\subseteq V\subseteq X$. Note that
 for subsets $U\subseteq V\subseteq W\subseteq X$, it does not matter
-how we go from $\Gamma(W,p)$ to $\Gamma(U,p)$:
+how we go from $\Gamma(W,p)$ to $\Gamma(U,p)$, since:
 \begin{align*}
   \res_{W,U} = \res_{V,U}\circ\res_{W,V}.
 \end{align*}
@@ -112,7 +123,7 @@ in $\Gamma(U\cup V,p)$.
 \subsection{Complex square roots}
 
 Finally, let us consider a slightly more interesting example.
-Let $p:\C^\times\to\C$ be given by $x\mapsto x^2$. Note that we
+Let $p:\C^\times\to\C$ be given by $z\mapsto z^2$. Note that we
 have to exclude zero from the domain to ensure that $p$ is continuous.
 Now $p$ is no longer surjective, meaning that there are no global
 sections whatsoever. However, even if we restrict our attention
@@ -150,9 +161,9 @@ and each object has an identity morphism that serves as a unit for composition.
 \begin{definition}\label{def:category}
   A \emph{category} $\cat C$ consists of
   \begin{enumerate}
-    \item a class of objects $\Obj_{\cat{C}}$;
-    \item for all $X,Y\in\Obj_{\cat{C}}$, a class of arrows $\cat{C}\rr{X,Y}$;
-    \item for all $X\in\Obj_{\cat{C}}$, an arrow $\id_X\in\cat{C}\rr{X,X}$;
+    \item a class of objects $\Obj {\cat{C}}$;
+    \item for all $X,Y\in\Obj {\cat{C}}$, a class of arrows $\cat{C}\rr{X,Y}$;
+    \item for all $X\in\Obj {\cat{C}}$, an arrow $\id_X\in\cat{C}\rr{X,X}$;
     \item for all $f\in\cat{C}\rr{X,Y}$ and $g\in\cat{C}\rr{Y,Z}$, an arrow
       $g\circ f\in\cat{C}\rr{X,Z}$
   \end{enumerate}
@@ -178,9 +189,9 @@ may regard this as a category $\mathcal B M$ with a single object $\bullet$.
 Each $m\in M$ we have an arrow $\mathcal B m:\bullet\to\bullet$ such that the
 composition agrees with the multiplication: $\mathcal B(m')\circ\mathcal Bm =
 \mathcal B(m * m')$. In this sense, one may think of categories as a monoid
-with more than one object. \note{notation?}
+with more than one object.
 
-\begin{example}\note{rational maps and varieties}
+\begin{example}
   Categories come in various different flavours:
   \begin{itemize}
     \item $\Set$: objects are sets, arrows are functions;
@@ -192,13 +203,16 @@ with more than one object. \note{notation?}
     \item Using the above, for any topological space $X$, the poset of open sets
       $(\text{Opens}X, \subseteq)$ may be regarded as a category. This will prove
       particularly important.
+    \item For every category $\cat{C}$ we can define the opposite category $\cat{C}^{\text{op}}$
+      where $\Obj {\cat{C}^{\text{op}}} = \Obj {\cat{C}}$ and 
+      $\cat{C}^{\text{op}}(X, Y) = \cat{C}(Y,X)$ i.e. an arrow $f: X \to Y$ 
+      in $\Obj {\cat{C}^{\text{op}}}$ is the same as an arrow $f : Y \to X$
+      in $\cat{C}$.
   \end{itemize}
 \end{example}
 
-\note{opposite category!}
-
 Observe some fundamental differences. Firstly, the arrows in $\Set$ and $\Grp$
-functions. Thinking about arrows in abstract categories as functions
+are functions. Thinking about arrows in abstract categories as functions
 intuitively seems like a good idea. One needs to be careful, however. The poset
 example demonstrates that this intuition is flawed. Secondly, there are size
 differences. While the poset category has as many objects as the poset itself,
@@ -420,10 +434,21 @@ space:
 If we denote by $\bb{\cat{C},\cat{D}}$ the category of functors
 $\cat{C}\to\cat{D}$ then $\Prsh_X = [\Open(X)^{\text{op}},\Set]$.
 
-\note{Presheaf category}
+\begin{example}
+  \label{ex:presheafnongluing}
+  Consider $\R$ and let $U \subseteq \R$ be an open set, then
+  \begin{align*}
+    \Open\rr{\R}^{\text{op}} &\to \Set\\
+    U &\mapsto \cc{\text{continuous bounded functions $U \to \R$}},
+  \end{align*}
+  is a presheaf.
+\end{example}
 
-\note{maybe we can do something interesting with presheaves alone?
-show why we would like the sheaf properties?}
+\begin{example}
+  Let $X$ be a topological space and $A$ a set. The \emph{constant presheaf} 
+  $\mathscr A_X$ is a constant functor where for all opens $U \subset X$ 
+  we have $\mathscr A_X(U) = A$ and all $\res_{V, U} = \id_A$. 
+\end{example}
 
 \subsection{Locality and gluing}
 
@@ -435,8 +460,8 @@ general open covers.
 
 \begin{definition}
   A presheaf $\mathscr F$ on $X$ satisfies the \emph{locality condition}
-  if, for all opens $U\subseteq X$, open covers $\cc{U_i}$ of $U$,
-  and $s,t\in\mathscr F(U)$, if $\res_{U,U_i}(s) = \res_{U,U_j}(t)$
+  if, for all opens $U\subseteq X$, all open covers $\cc{U_i}$ of $U$,
+  and $s,t\in\mathscr F(U)$, if $\res_{U,U_i}(s) = \res_{U,U_i}(t)$ for all $i$,
   then $s=t$.
 \end{definition}
 
@@ -447,10 +472,6 @@ general open covers.
   some $x\in U_i$ but we know $\restrict{s}{U_i}=\restrict{t}{U_i}$
   so $s(x) = t(x)$.
 \end{example}
-
-\note{Prove something using a presheaf with just locality?}
-
-\note{non-example; presheaf that doesn't have locality?}
 
 The second property that we deem desirable is the ability to glue
 non-contradictory sections together. That is, if we have sections
@@ -476,6 +497,15 @@ hold for arbitrary open covers.
     s(x) = s_i(x) \text{ if $x\in U_i$}.
   \end{align*}
 \end{example}
+
+\begin{nonexample}
+  The presheaf from Example~\ref{ex:presheafnongluing} does not satisfy the 
+  gluing property. To see this, consider the function $f(x) = x$. Take $U = \R$
+  and let $U_i = (i-1, i+1)$. Then $\cc{U_i : i \in Z}$ is an open cover of $\R$.
+  Clearly, for each $U_i$ the function $f(x)$ restricted to $U_i$ is continuous 
+  and bounded i.e. $f(x) \in \mathscr F(U_i)$. However, $f(x) \notin \mathscr F(\R)$ 
+  because on $\R$ as a whole $f(x)$ is unbounded. This violates the gluing property.
+\end{nonexample}
 
 It turns out that a presheaf that satisfies both the locality and the
 gluing property is particularly suitable to describe geometrical
@@ -521,22 +551,29 @@ how a morphism acts on the sections of basis elements is sufficient
 to define the whole morphism of sheaves.
 
 \begin{lemma}
-  Let $B$ be a basis of $X$ and let $F,G$ be sheaves on $X$. Suppose, for all $U\in B$,
-  we have a map $\eta_U:FU\to GU$ such that, for all $V\subseteq U$,
+  Let $B$ be a basis of $X$ and let $\mathscr F,\mathscr G$ be sheaves on $X$. Suppose, for all $U\in B$,
+  we have a map $\eta_U:\mathscr F(U)\to \mathscr G(U)$ such that, for all $V\subseteq U$, the following diagram commutes
   \begin{equation}
     % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGVSJdLFswLDEsIkdVIl0sWzIsMCwiRlYiXSxbMiwxLCJHViJdLFswLDIsIkZpIl0sWzAsMSwiXFxldGFfVSIsMl0sWzIsMywiXFxldGFfViJdLFsxLDMsIkdpIiwyXV0=
     \begin{tikzcd}
-      FU && FV \\
-      GU && GV
-      \arrow["Fi", from=1-1, to=1-3]
+      \mathscr F(U) && \mathscr F(V) \\
+      \mathscr G(U) && \mathscr G(V)
+      \arrow["\mathscr F(i)", from=1-1, to=1-3]
       \arrow["{\eta_U}"', from=1-1, to=2-1]
       \arrow["{\eta_V}", from=1-3, to=2-3]
-      \arrow["Gi"', from=2-1, to=2-3]
+      \arrow["\mathscr G(i)"', from=2-1, to=2-3]
     \end{tikzcd}
   \end{equation}
-  Then there exists a unique sheaf homomorphism $\tilde\eta : F\to G$.
+  Then there exists a unique sheaf homomorphism $\tilde\eta : \mathscr F\to \mathscr G$.
   \begin{proof}
-    \missingproof
+    For each $U \in B$ let $B_U = \cc{U_\alpha \in B : U_\alpha \subseteq U}$.
+    Then for all $U$ we can write $U = \bigcup_{U_\alpha \in B_U} U_\alpha$.
+    Now, let $\sigma \in \mathscr F(U)$ be a section and let $\sigma|_{U_\alpha} \in \mathscr F(U_\alpha)$
+    be the restriction of $\sigma$ to $U_\alpha$. This gives us sections 
+    $\eta_{U_\alpha}(\sigma|_{U_\alpha}) \in \mathscr G(U_\alpha)$. Since $U_\alpha$ cover $U$
+    and $\eta_{U_\alpha}(\sigma|_{U_\alpha})$ agree on restrictions, 
+    we have that there is a unique gluing $\tilde\eta_U(\sigma) \in \mathscr G(U)$.
+    \missingproof \note{check}
   \end{proof}
 \end{lemma}
 
@@ -558,9 +595,6 @@ is constant if it is constant on every connected component.
   Let $S$ be a set and $X$ a topological sapce. Then
   the \emph{constant sheaf $\mathscr C(S)$ on $X$} is the sheaf of sections
   of the projection $S\times X\to X$.
-  \note{We diverge from the course notation because $\mathscr F^S$ seems
-    (a) cumbersome to write, (b) non-standard, and (c) not very good
-  at indicating that anything about the sheaf is constant.}
 \end{definition}
 
 \begin{example}\label{ex:constant_sheaf}
@@ -609,25 +643,34 @@ frequently.
   \end{align*}
 \end{definition}
 
-
-
 \begin{example}
+  \label{ex:locallyconstsheafs1}
   Take $p:S^1 \to S^1$ as $z\mapsto z^k$ for $k\geq 2$.
   Then $\Gamma\rr{-,p}$ is a locally constant sheaf.
   \begin{proof}
-    Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$. From complex analysis we know that there are $k$ points satisfying $z = z^k$, hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$. Since each interval is disjoint, we have that $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$. It therefore follows that locally we have a constant sheaf.
-    \missingproof
-    \note{This is a sketch, I think it would be good to clarify some points, i.e. the isomorphism to the product, and the disjoint union with the epsilon stuff}
+    Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the 
+    form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$. 
+    From complex analysis we know that there are $k$ points satisfying $z = z^k$, 
+    hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that 
+    $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$. 
+    Since each interval is disjoint, we have that 
+    $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$. 
+    It therefore follows that locally we have a constant sheaf.\missingproof
   \end{proof}
 \end{example}
 
 \begin{nonexample}
-  Take $p: \mathbb{R} \to \mathbb{R}$ as $x \mapsto (x-1)(x+1)$.
-  Then $\Gamma\rr{-,p}$ is not a locally constant sheaf.
+  Let $p$ be the map from $\cc{(x, y) \in \R^2 : y = x^2} \to \R$ given 
+  by the projection $(x, y) \mapsto x$. Then $\Gamma\rr{-,p}$ is not a locally constant sheaf.
   \begin{proof}
-    \missingproof
+    Take $0 \in \R$ and consider the open neighbourhood $U = (-\frac{1}{2}, \frac{1}{2})$ around $0$.
+    Clearly $\Gamma(U, p) = \emptyset$. Now consider $U' = (\frac{1}{3}, \frac{1}{2})$
+    we have that $\Gamma(U, p) = \Z/2\Z$. But $U' \subseteq U$,
+    and so $\Gamma(U,p)$ is not locally constant for this choice of $U$.
+    We generalize this argument to an arbitrarily small open neighbourhood $U$ of $0$. 
+    We run into the same problem as above. Hence this sheaf cannot be locally 
+    constant because it is not the same constant sheaf on all of $U$.
   \end{proof}
-  \note{Check the map types not sure if correct}
 \end{nonexample}
 
 \begin{example}
@@ -638,6 +681,7 @@ frequently.
 \end{example}
 
 \section{Covers}\label{sec:covering_space}
+In this section we assume all spaces are locally connected. 
 
 \subsection{Covering spaces}
 
@@ -661,31 +705,20 @@ frequently.
 \end{notation}
 
 \begin{example}
-  The map $p:S^1\to S^1$ given by $x\mapsto x^k$, for some $k$, is a covering.
-  This is because the inverse image $\inv p\cc{x}$ has $k$
-  elements. We may choose a sufficiently small neighbourhood around $x$
-  such that the inverse image contains $k$ disjoint copies of $U$.
-\end{example}
-
-\begin{example}
-  The map $p:\R^2\to\R$ given by $\rr{x,y}\mapsto x$ is not a covering.
-  This is because the inverse image of a neighbourhood $U$ of $x$
-  is $\inv p(U) = U\times\R$. However, now \note{why???}
+  The map $p:S^1\to S^1$ given by $z\mapsto z^k$, for some $k$, is a covering.
+  This is because the inverse image $\inv p\cc{z}$ has $k$
+  elements. We may choose a sufficiently small neighbourhood around $z$
+  such that the inverse image contains $k$ disjoint copies of $U$. This was seen
+  in the proof of Example~\ref{ex:locallyconstsheafs1}.
 \end{example}
 
 \begin{example}
   The canonical map $q:\R^2\to\R^2/\Z$ is a covering.
-  \begin{proof}
-    \missingproof
-  \end{proof}
 \end{example}
 
 \begin{proposition}
   Let $p:\tilde X\to X$ and $p':\tilde{\tilde X}\to\tilde X$ be coverings.
   Then $pp':\tilde{\tilde{X}}\to X$ is a covering.
-  \begin{proof}
-    \missingproof
-  \end{proof}
 \end{proposition}
 
 \begin{definition}
@@ -701,27 +734,22 @@ frequently.
 \end{definition}
 
 \begin{theorem}
-  If $X$ is locally path connected then there exists a cover
-  $(\tilde X,p)$ such that, for all other covers $(Y,q)$ and choice of $x\in X$, $y\in Y$
-  with $p(y)=x$, there exists a unique homorphism of covers $f:(\tilde X,p)\to(Y,q)$
-  with \note{finish}
+  If $X$ is locally path connected then there exists a cover $(\tilde X,p)$, called the \emph{universal cover}, 
+  such that, for all other covers $(Y,q)$ and choice of $x\in \tilde X$, $y\in Y$
+  with $p(x) = q(y)$, there exists a unique homorphism of covers $f:(\tilde X,p)\to(Y,q)$
+  with the property $f(x) = y$.
+  \note{check}
 \end{theorem}
 
 \begin{theorem}
   Let $p:\tilde X\to X$ be a covering. If $\tilde X$ is simply connected then
   $\tilde X$ is the universal cover.
-  \begin{proof}
-    \missingproof
-  \end{proof}
 \end{theorem}
 
 \begin{theorem}
   Let $\mathscr F$ be a locally constant sheaf. Then there exists a covering
-  space $p:E\to X$ such that $\restrict{\mathscr F}{E} \cong F$.
-  \note{not entirely sure what this is supposed to say}
-  \begin{proof}
-    \missingproof
-  \end{proof}
+  space $\pi:E\to X$ such that the sheaf of sections of $\Gamma(-, \pi)$ is isomorphic to $\mathscr F$.
+  \note{check}
 \end{theorem}
 
 \begin{theorem}
@@ -1015,16 +1043,29 @@ properties, it may be difficult to calculate stalks this way. Luckily,
 there exists an explicit way to construct stalks:
 
 \begin{proposition}
-  \note{explicit construction!!!!}
+  Let $\mathscr F$ be a sheaf, and let $x \in X$. Then the stalk of $\mathscr F$
+  at $x$ is the set
+  \begin{align*}
+    \mathscr F_x = \cc{(U, \sigma) : U \in \Open(X), \sigma \in \mathscr F(U)} / \sim
+  \end{align*}
+  where $(U, \sigma) \sim (V, \tau)$ if and only if there is an open neighbourhood
+  $W$ of $x$, contained in $U \cap V$, such that $\sigma|_W = \tau|_W$.
 \end{proposition}
 
 \begin{example}
-  Stalks of sections $p:S^1\to S^1$ given by $x\mapsto x^k$.
+  Consider the map $p:S^1\to S^1$ given by $z\mapsto z^k$ for $k > 1$ and the sheaf 
+  of sections $\mathscr F = \Gamma(-, p)$. In this case we limit ourselves to 
+  studying connected open sets of $S^1$. This is because when working over stalks
+  even if we had a disconnected open set, we can shrink it to a connected component.
+  Clearly, every small connected neighbourhood of some point $x \in S^1$ will have
+  $k$ sections, i.e. $|\mathscr F_x| = k$. 
   \missingexample
 \end{example}
 
 \begin{example}
-  Stalks of sections of the projection $p:S^1\times\cc{1,\ldots,k}\to S^1$.
+  Consider the projection map $p:S^1\times\cc{1,\ldots,k}\to S^1$, and let 
+  $\mathscr F = \Gamma(-, p)$ be its sheaf of sections. By a similar analysis to 
+  the previous example, we also get that $|\mathscr F_x| = k$.
   \missingexample
 \end{example}
 
@@ -1053,10 +1094,10 @@ We now see that constant sheaves truly are constant.
 \end{theorem}
 
 \begin{example}
-  Consider the maps $p:S^1\to S^1$ given by $x\mapsto x^k$ for some $k>1$
+  Consider the maps $p:S^1\to S^1$ given by $z\mapsto z^k$ for some $k>1$
   and the projection $p':S^1\times\cc{1,\ldots,k}\to S^1$. We have sheaves
   of sections $\mathscr F=\Gamma(-,p)$ and $\mathscr G=\Gamma(-,p')$
-  and $\mathscr F_x=\mathscr G_x$ in the sense that the colimits are
+  and $\mathscr F_z=\mathscr G_z$ in the sense that the colimits are
   isomorphic as cocones. However, there is no natural transformation
   $\mathscr F\Rightarrow\mathscr G$ so these sheaves are not isomorphic.
 \end{example}
