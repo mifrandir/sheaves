@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{style}
 
-\author{Franz Miltz, Wiktor Kaluza}
+\author{Wiktor Kaluza \& Franz Miltz}
 \title{Sheaf theory}
 
 \addbibresource{sources.bib}
@@ -204,8 +204,8 @@ with more than one object.
       $(\text{Opens}X, \subseteq)$ may be regarded as a category. This will prove
       particularly important.
     \item For every category $\cat{C}$ we can define the opposite category $\cat{C}^{\text{op}}$
-      where $\Obj {\cat{C}^{\text{op}}} = \Obj {\cat{C}}$ and 
-      $\cat{C}^{\text{op}}(X, Y) = \cat{C}(Y,X)$ i.e. an arrow $f: X \to Y$ 
+      where $\Obj {\cat{C}^{\text{op}}} = \Obj {\cat{C}}$ and
+      $\cat{C}^{\text{op}}(X, Y) = \cat{C}(Y,X)$ i.e. an arrow $f: X \to Y$
       in $\Obj {\cat{C}^{\text{op}}}$ is the same as an arrow $f : Y \to X$
       in $\cat{C}$.
   \end{itemize}
@@ -217,8 +217,9 @@ intuitively seems like a good idea. One needs to be careful, however. The poset
 example demonstrates that this intuition is flawed. Secondly, there are size
 differences. While the poset category has as many objects as the poset itself,
 categories like $\Set$ and $\Grp$ are much larger. In fact, we know that
-$\Obj_{\Set}$ is a proper class. When the collection of objects of a category
-is a proper class it is called \emph{large} and otherwise \emph{small}.
+$\Obj_{\Set}$ is a proper class. When the collection of objects and morphsism
+of a category is a proper class it is called \emph{large} and otherwise
+\emph{small}.
 
 Just like other areas of mathematics, we particluarly care about invertible
 arrows:
@@ -445,9 +446,9 @@ $\cat{C}\to\cat{D}$ then $\Prsh_X = [\Open(X)^{\text{op}},\Set]$.
 \end{example}
 
 \begin{example}
-  Let $X$ be a topological space and $A$ a set. The \emph{constant presheaf} 
-  $\mathscr A_X$ is a constant functor where for all opens $U \subset X$ 
-  we have $\mathscr A_X(U) = A$ and all $\res_{V, U} = \id_A$. 
+  Let $X$ be a topological space and $A$ a set. The \emph{constant presheaf}
+  $\mathscr A_X$ is a constant functor where for all opens $U \subset X$
+  we have $\mathscr A_X(U) = A$ and all $\res_{V, U} = \id_A$.
 \end{example}
 
 \subsection{Locality and gluing}
@@ -479,7 +480,7 @@ on different open sets that agree on the (possibly empty) overlap,
 then there is a combined section. Once again, we require this to
 hold for arbitrary open covers.
 
-\begin{definition}
+\begin{definition}\label{def:gluing}
   A presheaf $\mathscr F$ on $X$ satisfies the \emph{gluing condition}
   if, for all opens $U\subseteq X$, open covers $\cc{U_i}$ of $U$,
   and families $\cc{s_i}$ with $s_i\in\mathscr F(U_i)$ and
@@ -498,14 +499,15 @@ hold for arbitrary open covers.
   \end{align*}
 \end{example}
 
-\begin{nonexample}
-  The presheaf from Example~\ref{ex:presheafnongluing} does not satisfy the 
+\begin{example}
+  The presheaf from Example~\ref{ex:presheafnongluing} does not satisfy the
   gluing property. To see this, consider the function $f(x) = x$. Take $U = \R$
-  and let $U_i = (i-1, i+1)$. Then $\cc{U_i : i \in Z}$ is an open cover of $\R$.
-  Clearly, for each $U_i$ the function $f(x)$ restricted to $U_i$ is continuous 
-  and bounded i.e. $f(x) \in \mathscr F(U_i)$. However, $f(x) \notin \mathscr F(\R)$ 
-  because on $\R$ as a whole $f(x)$ is unbounded. This violates the gluing property.
-\end{nonexample}
+  and let $U_i = (i-1, i+1)$. Then $\cc{U_i : i \in Z}$ is an open cover of
+  $\R$. Clearly, for each $U_i$ the function $f(x)$ restricted to $U_i$ is
+  continuous and bounded i.e. $f(x) \in \mathscr F(U_i)$. However, $f(x) \notin
+  \mathscr F(\R)$ because on $\R$ as a whole $f(x)$ is unbounded. This violates
+  the gluing property.
+\end{example}
 
 It turns out that a presheaf that satisfies both the locality and the
 gluing property is particularly suitable to describe geometrical
@@ -525,8 +527,87 @@ and topological properties.
   \end{align*}
 \end{example}
 
+\begin{example}
+  Consider the sheaf structure $\mathscr O$ on $X$ given by
+  \begin{align*}
+    \mathscr O(U) = \cc{ \text{continuous functions }U\to\R}.
+  \end{align*}
+  This is a sheaf.
+\end{example}
+
+\begin{example}
+  Consider a topological space and a set $S$ with $\vv{S}\geq 2$. Then the
+  constant presheaf
+  \begin{align*}
+    \Delta S : \Open(X)^{\text{op}} \to \Set
+  \end{align*}
+  is not a sheaf. In particular, $\vv{\Delta S(\emptyset)} = 3 > 1$.
+\end{example}
+
+\begin{theorem}
+  For sheaves any gluing as in \ref{def:gluing} is unique.
+\end{theorem}
+
+\begin{corollary}
+  If $\mathscr F$ is a presheaf on $X$ satisfying the gluing
+  condition, then $\vv{\mathscr F(\emptyset)}=1$.
+\end{corollary}
+
+
+\begin{lemma}\label{lemma:axioms_on_basis}
+  Let $X$ be a topological space with basis $B$. If $\mathscr F$
+  is a presheaf on $X$ that satisfies locality and gluing with respect
+  to $B$, then $\mathscr F$ is a sheaf.
+\end{lemma}
+
+\begin{example}
+  Let $f:X\to Y$ be continuous and let $\mathscr F$ be a sheaf on $X$.
+  Then we have a sheaf $\mathscr G$ on $Y$ given by
+  $\mathscr G(U) = \mathscr F(\inv f(U))$.
+  \begin{proof}
+    We begin by noting if $V\subseteq U\subseteq Y$ then
+    $\inv f(V)\subseteq\inv f(U)\subseteq X$. Thus we have a
+    functor $\inv f:\Open(Y)^{\text{op}}\to\Open(X)^{\text{op}}$.
+    This makes $\mathscr G = \mathscr F \circ \inv f$ a presheaf.
+
+    We now verify the axioms:
+    \begin{itemize}
+      \item Let $U\subseteq Y$ be open, let $\cc{U_i}$ be an open cover
+        of $U$ and let $s,t\in\mathscr G(U)$ such that, for all
+        $i$, $\restrict{s}{U_i}=\restrict{t}{U_i}$. Unpacking definitions,
+        we have $s,t\in\mathscr F(\inv f(U))$ with
+        $\restrict{s}{\inv f(U_i)} = \restrict{t}{\inv f(U_i)}$
+        for all $i$. We now note that $\cc{\inv f(U_i)}$ is an open
+        cover of $\inv f(U_i)$. As $\mathscr F$ is a sheaf,
+        we have $s=t$.
+      \item Let $U\subseteq Y$ be open, let $\cc{U_i}$ be an open
+        cover of $U$, and let $\cc{s_i}$ be a family such that
+        $s_i\in\mathscr G(U_i)$ and $\restrict{s_i}{U_i\cap U_j}
+        =\restrict{s_j}{U_i\cap U_j}$ for all $i,j$.
+        Once again we note that $\inv f(U)\subseteq X$ is open and
+        $\cc{\inv f(U_i)}$ is an open cover. Further note
+        $\inv f(U_i\cap U_j)=\inv f(U_i)\cap\inv f(U_j)$.
+        Thus
+        \begin{align*}
+          \restrict{s_i}{\inv f(U_i)\cap \inv f(U_j)}
+          &= \restrict{s_i}{\inv f(U_i\cap U_j)} \\
+          &= \restrict{s_i}{U_i\cap U_j} \\
+          &= \restrict{s_j}{U_i\cap U_j} \\
+          &= \restrict{s_j}{\inv f(U_i\cap U_j)} \\
+          &= \restrict{s_j}{\inv f(U_i)\cap \inv f(U_j)}.
+        \end{align*}
+        By the gluing property of $\mathscr F$, there
+        exists an $s\in\mathscr F(\inv f(U))$ such that
+        $\restrict{s}{\inv f(U_i)} = s_i$ for all $i$. This
+        proves the gluing property of $\mathscr G$.
+    \end{itemize}
+  \end{proof}
+\end{example}
+
+\subsection{The category of sheaves}
+
 We are particularly interested in morphisms between objects. Sheaves
-are no exceptions.
+are no exception.
 \begin{definition}
   Let $\mathscr F,\mathscr G$ be sheaves on $X$. A \emph{morphism from
   $\mathscr F$ to $\mathscr G$} is a natural transformation
@@ -550,32 +631,33 @@ space, rather than just the poset of its opens. In particular, choosing
 how a morphism acts on the sections of basis elements is sufficient
 to define the whole morphism of sheaves.
 
-\begin{lemma}
-  Let $B$ be a basis of $X$ and let $\mathscr F,\mathscr G$ be sheaves on $X$. Suppose, for all $U\in B$,
-  we have a map $\eta_U:\mathscr F(U)\to \mathscr G(U)$ such that, for all $V\subseteq U$, the following diagram commutes
+\begin{lemma}\label{lemma:morphisms_on_basis}
+  Let $X$ be a topological space with basis $\cc{B_i}$ and let $\mathscr
+  F,\mathscr G$ be sheaves on $X$. Suppose, for all $i$, we have a map
+  $\eta_i:\mathscr F(B_i)\to \mathscr G(B_i)$ such that, for all $B_j\subseteq
+  B_i$, the following diagram commutes
   \begin{equation}
-    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGVSJdLFswLDEsIkdVIl0sWzIsMCwiRlYiXSxbMiwxLCJHViJdLFswLDIsIkZpIl0sWzAsMSwiXFxldGFfVSIsMl0sWzIsMywiXFxldGFfViJdLFsxLDMsIkdpIiwyXV0=
     \begin{tikzcd}
-      \mathscr F(U) && \mathscr F(V) \\
-      \mathscr G(U) && \mathscr G(V)
-      \arrow["\mathscr F(i)", from=1-1, to=1-3]
-      \arrow["{\eta_U}"', from=1-1, to=2-1]
-      \arrow["{\eta_V}", from=1-3, to=2-3]
-      \arrow["\mathscr G(i)"', from=2-1, to=2-3]
+      \mathscr F(B_i) && \mathscr F(B_j) \\
+      \mathscr G(B_i) && \mathscr G(B_j)
+      \arrow["\mathscr \res", from=1-1, to=1-3]
+      \arrow["{\eta}"', from=1-1, to=2-1]
+      \arrow["{\eta}", from=1-3, to=2-3]
+      \arrow["\mathscr \res"', from=2-1, to=2-3]
     \end{tikzcd}
   \end{equation}
   Then there exists a unique sheaf homomorphism $\tilde\eta : \mathscr F\to \mathscr G$.
-  \begin{proof}
-    For each $U \in B$ let $B_U = \cc{U_\alpha \in B : U_\alpha \subseteq U}$.
-    Then for all $U$ we can write $U = \bigcup_{U_\alpha \in B_U} U_\alpha$.
-    Now, let $\sigma \in \mathscr F(U)$ be a section and let $\sigma|_{U_\alpha} \in \mathscr F(U_\alpha)$
-    be the restriction of $\sigma$ to $U_\alpha$. This gives us sections 
-    $\eta_{U_\alpha}(\sigma|_{U_\alpha}) \in \mathscr G(U_\alpha)$. Since $U_\alpha$ cover $U$
-    and $\eta_{U_\alpha}(\sigma|_{U_\alpha})$ agree on restrictions, 
-    we have that there is a unique gluing $\tilde\eta_U(\sigma) \in \mathscr G(U)$.
-    \missingproof \note{check}
-  \end{proof}
 \end{lemma}
+
+\begin{theorem}
+  Let $X$ be a topological space with basis $\cc{B_i}$. If $\mathscr F :
+  \cc{B_i} \to \Set$ is a functor that satisfies locality and gluing, then
+  there is a unique sheaf $\overline{\mathscr F}$ on $X$ satisfying
+  $\overline{\mathscr F}(B_i)=\mathscr F(B_i)$.
+  \begin{proof}
+    Combine \ref{lemma:axioms_on_basis} and \ref{lemma:morphisms_on_basis}.
+  \end{proof}
+\end{theorem}
 
 \section{Constant and locally constant}\label{sec:locally_constant_sheaves}
 
@@ -583,30 +665,33 @@ Many sheaves that we consider actually satsify stronger conditions
 than merely locality and gluing. In this section we investigate constant
 and locally constant sheaves.
 
-\subsection{Constant sheaves are not constant}
+\subsection{Constant sheaves}
 
 Let $X$ be a topological space. In general, a constant assignment
-$U\mapsto S$ will not satisfy the sheaf axioms. Nonetheless,
+$U\mapsto S$ will not satisfy the sheaf axioms.
+
+Nonetheless,
 we are interested in defining the notion of a particularly simple
 sheaf on $X$ by making it as constant as possible. We say a sheaf
 is constant if it is constant on every connected component.
 
 \begin{definition}
   Let $S$ be a set and $X$ a topological sapce. Then
-  the \emph{constant sheaf $\mathscr C(S)$ on $X$} is the sheaf of sections
+  the \emph{constant sheaf $\mathscr C^S$ on $X$} is the sheaf of sections
   of the projection $S\times X\to X$.
 \end{definition}
 
 \begin{example}\label{ex:constant_sheaf}
-  Consider a topological space $X$ and $S=\cc{0,1}$. For any
+  Consider topological spaces $X$ and $S=\cc{0,1}$ and the
+  projection $X\times S\to X$. For any
   connected open $U\subseteq X$, there are two sections:
   \begin{align*}
     s_0:x \mapsto(0,x), \hs s_1:x\mapsto(1,x).
   \end{align*}
-  If an open $U$ has connected components $V$ and $V'$ then
-  it is possible to choose different a different section for each
-  while preserving continuity. Thus a section on an open $U$ amounts
-  to assigning $0$ or $1$ to each connected component $V\in\pi_0(U)$.
+  If an open has several connected components, then it is possible to
+  choose a different section for each while preserving continuity.
+  Thus a section on an open $U$ amounts to assigning $0$ or $1$ to each
+  connected component $C\in\pi_0(U)$. Thus $\Gamma(-,p)$ is constant.
 \end{example}
 
 The definition is elegant in that it obviously satisfies the sheaf
@@ -635,12 +720,9 @@ restrictive notion, that of a locally constant sheaf, comes up
 frequently.
 
 \begin{definition}
-  A \emph{locally constant sheaf $\mathscr F$ on $X$} is a sheaf such that,
-  for all $x\in X$, there exists an open neighbourhood $U$ of $x$,
-  a set $S_x$, and an isomorphism
-  \begin{align*}
-    \restrict{\mathscr F}{U} \cong \mathscr C(S_x).
-  \end{align*}
+  A \emph{locally constant sheaf $\mathscr F$ on $X$} is a sheaf such that, for
+  all $x\in X$, there exists an open neighbourhood $U$ of $x$, a set $S$, and
+  an isomorphism $\restrict{\mathscr F}{U} \cong \mathscr C^{S}$.
 \end{definition}
 
 \begin{example}
@@ -648,30 +730,48 @@ frequently.
   Take $p:S^1 \to S^1$ as $z\mapsto z^k$ for $k\geq 2$.
   Then $\Gamma\rr{-,p}$ is a locally constant sheaf.
   \begin{proof}
-    Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the 
-    form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$. 
-    From complex analysis we know that there are $k$ points satisfying $z = z^k$, 
-    hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that 
-    $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$. 
-    Since each interval is disjoint, we have that 
-    $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$. 
-    It therefore follows that locally we have a constant sheaf.\missingproof
+    Let $U \in S^1$ be open. It suffices to prove this statement for $U$ of the
+    form $U = ]x - \epsilon, x + \epsilon[$ for some $x \in S^1$ and $\epsilon \ll 1$.
+    From complex analysis we know that there are $k$ points satisfying $z = z^k$,
+    hence $p^{-1}(x) = \{x_1, ..., x_k\}$. In particular, we have that
+    $p^{-1}(U) = \amalg_{i=1}^k ]x_i - \frac{\epsilon}{k}, x_i + \frac{\epsilon}{k}[$.
+    Since each interval is disjoint, we have that
+    $p^{-1}(U) \cong U \times \mathbb{Z}/k\mathbb{Z}$.
+    It therefore follows that locally we have a constant sheaf.
   \end{proof}
 \end{example}
 
-\begin{nonexample}
-  Let $p$ be the map from $\cc{(x, y) \in \R^2 : y = x^2} \to \R$ given 
+\begin{example}
+  For some $n\geq 1$, consider the a subspace $X\subseteq R^n$.
+  Then the sheaf $\mathscr O$ of continuous real-valued functions
+  on $X$ is not locally constant.
+  \begin{proof}
+    Let $x\in X$ and assume there is a neighbourhood $x\in U$
+    such that $\mathscr O$ is contant on $U$. Then there is
+    an $r>0$ such that we have a strict inclusion $B(x,r)\subset U$.
+    Now let $y\in U\setminus B(x,r)$. Consider the indicator
+    function $\chi_{\cc{y}} : U \to \cc{0,1}\subseteq\R$. This is
+    continuous on $B(x,r)$ but discontinuous at $y$. Thus
+    $\chi_{\cc{y}} \in \mathscr O(B(x,r))$ but
+    $\chi_{\cc{y}} \not\in\mathscr O(U)$. This shows
+    that the restriction $\res:\mathscr O(U)\to \mathscr O(B(x,r))$
+    is not an isomorphism so $\mathscr O$ is not locally constant.
+  \end{proof}
+\end{example}
+
+\begin{example}
+  Let $p$ be the map from $\cc{(x, y) \in \R^2 : y = x^2} \to \R$ given
   by the projection $(x, y) \mapsto x$. Then $\Gamma\rr{-,p}$ is not a locally constant sheaf.
   \begin{proof}
     Take $0 \in \R$ and consider the open neighbourhood $U = (-\frac{1}{2}, \frac{1}{2})$ around $0$.
     Clearly $\Gamma(U, p) = \emptyset$. Now consider $U' = (\frac{1}{3}, \frac{1}{2})$
     we have that $\Gamma(U, p) = \Z/2\Z$. But $U' \subseteq U$,
     and so $\Gamma(U,p)$ is not locally constant for this choice of $U$.
-    We generalize this argument to an arbitrarily small open neighbourhood $U$ of $0$. 
-    We run into the same problem as above. Hence this sheaf cannot be locally 
+    We generalize this argument to an arbitrarily small open neighbourhood $U$ of $0$.
+    We run into the same problem as above. Hence this sheaf cannot be locally
     constant because it is not the same constant sheaf on all of $U$.
   \end{proof}
-\end{nonexample}
+\end{example}
 
 \begin{example}
   Let $X=\R$ and let $\sim$ be the equivalence relation on $\R+\R$ such that
@@ -680,8 +780,13 @@ frequently.
   is not locally constant.
 \end{example}
 
+\begin{theorem}\label{thm:locally_constant_simply_connected}
+  Let $\mathscr F$ be a locally constant sheaf on $X$. If $U\subseteq X$ is
+  simply connected, then $\restrict{\mathscr F}{U}$ is constant.
+\end{theorem}
+
 \section{Covers}\label{sec:covering_space}
-In this section we assume all spaces are locally connected. 
+In this section we assume all spaces are locally connected.
 
 \subsection{Covering spaces}
 
@@ -734,11 +839,10 @@ In this section we assume all spaces are locally connected.
 \end{definition}
 
 \begin{theorem}
-  If $X$ is locally path connected then there exists a cover $(\tilde X,p)$, called the \emph{universal cover}, 
+  If $X$ is locally path connected then there exists a cover $(\tilde X,p)$, called the \emph{universal cover},
   such that, for all other covers $(Y,q)$ and choice of $x\in \tilde X$, $y\in Y$
   with $p(x) = q(y)$, there exists a unique homorphism of covers $f:(\tilde X,p)\to(Y,q)$
   with the property $f(x) = y$.
-  \note{check}
 \end{theorem}
 
 \begin{theorem}
@@ -749,7 +853,6 @@ In this section we assume all spaces are locally connected.
 \begin{theorem}
   Let $\mathscr F$ be a locally constant sheaf. Then there exists a covering
   space $\pi:E\to X$ such that the sheaf of sections of $\Gamma(-, \pi)$ is isomorphic to $\mathscr F$.
-  \note{check}
 \end{theorem}
 
 \begin{theorem}
@@ -903,10 +1006,6 @@ all small limits.
   Let $\scat J$ be a small category and $D:\scat J\to\Set$ a diagram. Then $D$ has a limit.
 \end{theorem}
 
-\note{products}
-
-\note{remark circular definition}
-
 \subsection{Colimits}
 
 Colimits are dual to limits. Almost all considerations of the last section translate
@@ -950,23 +1049,7 @@ the following commutes:
   \end{tikzcd}
 \end{equation}
 
-\begin{example}\note{fix example to include coproducts, possibly defining them right away}
-  Consider a family of sets $\mathcal J=\cc{X_\alpha}_{\alpha\in\Lambda}$. We may
-  regard this as a category with no morphisms. We then have
-  the obvious inclusion functor $D:\mathcal J\to\Set$. Consider the cartesian
-  product with the projections
-  \begin{align*}
-    \pi_\alpha : \prod_{\alpha\in\Lambda} X_\alpha \to X_\alpha.
-  \end{align*}
-  This defines a natural transformation
-  \begin{align*}
-    \pi : \Delta\rr{\prod_{\alpha\in\Lambda} X_\alpha}\Rightarrow D
-  \end{align*}
-  In particular, there are no non-identity arrows in $\mathcal J$ so
-  naturality is trivially satisfied.
-\end{example}
-
-A cocone that factors through every other cocone is a limit.
+A cocone that factors through every other cocone is a colimit.
 
 \begin{definition}
   Let $D:\cat{J}\to\cat{C}$ be a diagram. A \emph{colimit of $D$} is a cocone
@@ -1053,37 +1136,65 @@ there exists an explicit way to construct stalks:
 \end{proposition}
 
 \begin{example}
-  Consider the map $p:S^1\to S^1$ given by $z\mapsto z^k$ for $k > 1$ and the sheaf 
-  of sections $\mathscr F = \Gamma(-, p)$. In this case we limit ourselves to 
-  studying connected open sets of $S^1$. This is because when working over stalks
-  even if we had a disconnected open set, we can shrink it to a connected component.
-  Clearly, every small connected neighbourhood of some point $x \in S^1$ will have
-  $k$ sections, i.e. $|\mathscr F_x| = k$. 
-  \missingexample
+  Consider the map $p:S^1\to S^1$ given by $z\mapsto z^k$ for $k > 1$ and the
+  sheaf of sections $\mathscr F = \Gamma(-, p)$. In this case we limit
+  ourselves to studying connected open sets of $S^1$. This is because when
+  working over stalks even if we had a disconnected open set, we can shrink it
+  to a connected component. Clearly, every small connected neighbourhood of
+  some point $x \in S^1$ will have $k$ sections, i.e. $|\mathscr F_x| = k$.
 \end{example}
 
 \begin{example}
-  Consider the projection map $p:S^1\times\cc{1,\ldots,k}\to S^1$, and let 
-  $\mathscr F = \Gamma(-, p)$ be its sheaf of sections. By a similar analysis to 
+  Consider the projection map $p:S^1\times\cc{1,\ldots,k}\to S^1$, and let
+  $\mathscr F = \Gamma(-, p)$ be its sheaf of sections. By a similar analysis to
   the previous example, we also get that $|\mathscr F_x| = k$.
-  \missingexample
 \end{example}
 
 We now see that constant sheaves truly are constant.
 
-\begin{example}
+\begin{lemma}\label{lemma:constant_stalks}
   Let $S$ be any set and $X$ a topological space. Then, for all
-  $x\in X$, $\mathscr C(X)_x = S$.
+  $x\in X$, $\mathscr C^S_x = S$.
+\end{lemma}
+
+\begin{example}
+  Let $p:Y\to X$ and consider the sheaf of sections $\Gamma(-,p)$.
+  It need not be the case that $\mathscr F_x = \inv p(x)$.
+  \begin{proof}
+    Consider the projection $p$ from $(\R+\R)/\sim$ to $\R$ where we have
+    unified a single point $x\in R$. Then $\vv{\mathscr F_x}=4$
+    and $\vv{\inv p(x)}=1$.
+  \end{proof}
+\end{example}
+
+\begin{example}
+  Let $\mathscr F$ be a locally constant sheaf on a simply connected space $X$.
+  If $\mathscr F$ has at least one non-empty stalk, then $\mathscr F(X)$ is
+  non-empty.
+  \begin{proof}
+    By \ref{thm:locally_constant_simply_connected},
+    $\mathscr F$ is constant, i.e. $\mathscr F=\mathscr C^S$ for
+    some $S$. By \ref{lemma:constant_stalks}, $\mathscr F_x = S$
+    for all $x\in X$. In particular, $X$ is connected so
+    $\mathscr F(X) = S \neq \emptyset$.
+  \end{proof}
 \end{example}
 
 \subsection{Relation of sheaves and stalks}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:locally_constant_stalks}
   Let $\mathscr F$ be a locally constant sheaf on $X$. Then, for all $x\in X$,
   there exists an open $U\subseteq X$ with $x\in U$ such that $\mathscr
   F(U)=\mathscr F_x$.
   \begin{proof}
-    \missingproof
+    Let $x\in X$. Note for some connected neighbourhood
+    $U\subseteq X$ of $x$ and some
+    set $S$ we have $\restrict{\mathscr F}{U} \cong \mathscr C^S$.
+    This implies $\mathscr F(U) = \restrict{\mathscr F}{U}(U)
+    \cong \mathscr C^S(U) = S$.
+    Moreover, $\rr{\restrict{\mathscr F}{U}}_x \cong \mathscr C^S_x = S$.
+    In particular, $\mathscr F_x \cong S$.
+    Thus $\mathscr F(U) = \mathscr F_x$.
   \end{proof}
 \end{lemma}
 
@@ -1101,6 +1212,80 @@ We now see that constant sheaves truly are constant.
   isomorphic as cocones. However, there is no natural transformation
   $\mathscr F\Rightarrow\mathscr G$ so these sheaves are not isomorphic.
 \end{example}
+
+\begin{example}
+  Let $\mathscr F$ be a locally constant sheaf on $\R$. If
+  $\vv{\mathscr F_0}=3$, then $\vv{\mathscr F(\R\setminus\cc{0})}=9$.
+  \begin{proof}
+    Note that $\R$ is simply connected so by
+    \ref{thm:locally_constant_simply_connected} it must be that $\mathscr F$ is
+    constant. Let $S=\mathscr F_0$. By \ref{lemma:locally_constant_stalks},
+    there is a connected neighbourhood $x\in U$ such that
+    $\mathscr F(U) = S$. As $\mathscr F$ is constant we must have
+    $\mathscr F = \mathscr C^S$. Thus
+    $\mathscr F(\R\setminus\cc{0}) = S\times S$ and so
+    $\vv{S}=3$ proves the claim.
+  \end{proof}
+\end{example}
+
+\begin{example}
+  Let $Y=(\R+\R)/\sim$ where we have identified all but a countable set of points
+  $S\subseteq\R$ and let $p:Y\to\R$ be the projection. Consider the sheaf of
+  sections $\mathscr F = \Gamma(-,p)$.
+  Note that for all connected opens $U\subseteq\R\setminus S$
+  we have a single section $U\to Y$ given by the identity. In particular,
+  for all $x\in\R\setminus S$, $\vv{\mathscr F_x} = 1$.
+
+  However, if $U\subseteq\R$ is connected and $S\cap U = \cc{x}$
+  then there are exactly two sections $U\to Y$, corresponding
+  to the injections $\R\to\R + \R$. Thus $\vv{\mathscr F_x}=2$.
+\end{example}
+
+\subsection{Products of sheaves}
+
+\begin{definition}\label{def:product_sheaf}
+  Let $\mathscr F$ be a sheaf on $X$ and let $\mathscr G$ be a sheaf
+  on $Y$. Now let $B_X$ and $B_Y$ be bases of $X$ and $Y$ respectively.
+  Define the \emph{product sheaf} $\mathscr F\times\mathscr G$
+  on $X\times Y$ as follows: for all $U\in B_X$ and $V\in B_Y$,
+  \begin{align}\label{eq:product_sheaf}
+    (\mathscr F\times\mathscr G)(U\times V) = \mathscr F(U) \times \mathscr
+    G(V).
+  \end{align}
+\end{definition}
+
+While (\ref{eq:product_sheaf}) looks very elegant, thep product sheaf
+has some shortcomings. In particular, we would like the stalks to agree.
+However, we find that the equation
+\begin{align*}
+  \rr{\mathscr F\times\mathscr G}_{(x,y)}
+  = \colim_{W\ni(x,y)}\rr{\mathscr F\times\mathscr G}(W)
+  = \colim_{U\ni x}\mathscr F(U)\times\colim_{V\ni y}\mathscr G(V)
+  = \mathscr F_x \times \mathscr G_x
+\end{align*}
+does not hold in general. For this reason we introduce the box product.
+
+\begin{definition}
+  Let $\mathscr F$ be a sheaf on $X$ and let $\mathscr G$ be a sheaf
+  on $Y$. Let $A$ be a basis for $X$ and $B$ be a basis for $Y$.
+  Define the sheaf $\mathscr F\boxtimes\mathscr G$ on $X\times Y$
+  by
+  \begin{align*}
+    (\mathscr F\boxtimes\mathscr G)(U) = \ldots
+  \end{align*}
+\end{definition}
+
+\begin{theorem}
+  Let $\mathscr F$ and $\mathscr G$ be sheaves on $X$ and $Y$, respectively.
+  For all $x\in X$ and $y\in Y$,
+  \begin{align*}
+    (\mathscr F\boxtimes\mathscr G)_{(x,y)}
+    = \mathscr F_x \times \mathscr G_y.
+  \end{align*}
+  \begin{proof}
+    Missing def\ldots
+  \end{proof}
+\end{theorem}
 
 \printbibliography{}
 

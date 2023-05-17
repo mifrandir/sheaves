@@ -34,7 +34,8 @@
 \RequirePackage{parskip}
 
 % theorems
-\newtheoremstyle{sltheorem} {}                % Space above
+\newtheoremstyle{sltheorem}
+{}                % Space above
 {}                % Space below
 {\upshape}        % Theorem body font % (default is "\upshape")
 {}                % Indent amount
@@ -48,20 +49,12 @@
 \declaretheorem[sibling=theorem]{
   lemma,
   corollary,
-  conjecture,
   proposition,
   example,
-  nonexample,
-  remark,
   definition,
   notation
 }
 
-\newcounter{axiomcounter}
-\setcounter{axiomcounter}{0}
-\newtheorem{axiom}[axiomcounter]{Axiom}
-
-% macros
 \newcommand{\declarecommand}[1]{\providecommand{#1}{}\renewcommand{#1}}
 
 \declarecommand{\N}{\mathbb{N}}
@@ -69,7 +62,6 @@
 \declarecommand{\Q}{\mathbb{Q}}
 \declarecommand{\R}{\mathbb{R}}
 \declarecommand{\C}{\mathbb{C}}
-
 \declarecommand{\P}{\mathcal{P}}
 
 \declarecommand{\cc}[1]{\left\lbrace#1\right\rbrace}
@@ -82,12 +74,6 @@
 \declarecommand{\inv}[1]{{#1}^{-1}}
 
 \declarecommand{\hs}{\hspace{1cm}}
-\declarecommand{\explain}[1]{\overset{(\ref{#1})}{=}}
-\declarecommand{\explainnat}[1]{\overset{#1\text{-nat}}{=}}
-\declarecommand{\explaindef}[1]{\overset{#1\text{-def}}{=}}
-\declarecommand{\explainid}{\overset{\text{id}}{=}}
-
-\DeclareMathSymbol{\iex}{\mathord}{operators}{'074}
 
 \declarecommand{\missingproof}{\todo[color=red!50]{proof}}
 \declarecommand{\missingdef}{\todo[color=blue!50]{definition}}
@@ -106,8 +92,9 @@
 \declarecommand{\Cat}{\textbf{Cat}}
 \declarecommand{\CAT}{\textbf{CAT}}
 \declarecommand{\Grp}{\textbf{Grp}}
-\declarecommand{\Sheaf}{\textbf{Sheaf}}
-\declarecommand{\Prsh}{\textbf{Prsh}}
+\declarecommand{\Sheaf}{\textbf{Sh}}
+\declarecommand{\Prsh}{\textbf{PSh}}
+\declarecommand{\Psh}{\Prsh}
 \DeclareMathOperator{\Obj}{Obj}
 \DeclareMathOperator{\colim}{colim}
 \DeclareMathOperator{\Hom}{Hom}
